@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#262B1D">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Ang. Paszport">
+<meta name="format-detection" content="telephone=no">
+<title>Angielski Paszport — STANAG 6001</title>
+<style>
+  :root{
+    --ink:#211F1A;
+    --paper:#C7BF9F;
+    --paper-dark:#B6AC85;
+    --paper-darker:#A2966C;
+    --card:#F1ECDC;
+    --navy:#262B1D;
+    --navy-light:#333B24;
+    --teal:#54615A;
+    --teal-dark:#3A443D;
+    --amber:#C1440E;
+    --amber-light:#DE6A2E;
+    --stamp:#7E1F1F;
+    --rust:#7E1F1F;
+    --good:#48592B;
+    --line:rgba(33,31,26,0.24);
+    --font-display: 'Arial Black', 'Franklin Gothic Bold', 'Haettenschweiler', 'Segoe UI', sans-serif;
+    --font-body: 'Bahnschrift', 'Segoe UI', Roboto, Arial, sans-serif;
+    --font-mono: 'Consolas', 'SF Mono', 'Courier New', monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background-color:var(--paper);
+    background-image:
+      repeating-linear-gradient(0deg, rgba(33,31,26,0.05) 0 1px, transparent 1px 24px),
+      repeating-linear-gradient(90deg, rgba(33,31,26,0.05) 0 1px, transparent 1px 24px);
+    color:var(--ink); font-family:var(--font-body); line-height:1.5; min-height:100vh;
+  }
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;} }
+  a{color:inherit;}
+  button{font-family:inherit;}
+
+  header.top{background:var(--navy); color:var(--paper); padding:22px 18px 26px; position:relative; overflow:hidden;
+    background-image:repeating-linear-gradient(135deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 14px);
+    border-bottom:3px solid var(--ink);}
+  header.top::after{content:""; position:absolute; left:0; right:0; bottom:-3px; height:7px;
+    background:repeating-linear-gradient(-45deg, var(--amber) 0 12px, var(--ink) 12px 24px); opacity:.9;}
+  .top-inner{max-width:980px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;}
+  .brand{display:flex; align-items:center; gap:14px; cursor:pointer;}
+  .brand-mark{width:46px;height:50px;
+    clip-path:polygon(50% 0%, 100% 16%, 100% 62%, 50% 100%, 0% 62%, 0% 16%);
+    background:linear-gradient(160deg, var(--teal) 0%, var(--navy-light) 100%);
+    border:2px solid var(--amber-light);
+    display:flex;align-items:center;justify-content:center; font-family:var(--font-display); font-weight:900; font-size:15px;
+    letter-spacing:.5px; color:var(--paper); flex-shrink:0;}
+  .brand h1{font-family:var(--font-display); font-size:21px; margin:0; letter-spacing:1.5px; font-weight:900; text-transform:uppercase;}
+  .brand p{margin:3px 0 0; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--amber-light); opacity:.95; font-family:var(--font-mono);}
+  .stats-chip{font-family:var(--font-mono); background:var(--navy-light); border:1px solid var(--amber); color:var(--paper);
+    border-radius:3px; padding:8px 16px; font-size:12.5px; white-space:nowrap; letter-spacing:.5px;}
+
+  main{max-width:980px; margin:0 auto; padding:28px 18px 80px;}
+
+  .crumbs{display:flex; align-items:center; gap:6px; font-size:11.5px; color:var(--teal-dark); margin-bottom:14px; flex-wrap:wrap;
+    font-family:var(--font-mono); text-transform:uppercase; letter-spacing:.5px;}
+  .crumbs button{background:none;border:none;color:var(--amber); font-weight:700; cursor:pointer; font-size:11.5px; padding:0; font-family:var(--font-mono);}
+  .crumbs button:hover{text-decoration:underline;}
+
+  .intro{margin-bottom:26px;}
+  .intro h2{font-family:var(--font-display); font-size:24px; margin:0 0 8px; text-transform:uppercase; letter-spacing:1px;}
+  .intro p{margin:0; color:#40453A; max-width:65ch;}
+
+  .level-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media (max-width:640px){ .level-grid{grid-template-columns:1fr;} }
+  .level-card{background:var(--card); border:1.5px solid var(--ink); border-radius:3px; padding:24px; cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease; position:relative; overflow:hidden;
+    box-shadow:5px 5px 0 rgba(33,31,26,0.12);}
+  .level-card:hover{transform:translate(-2px,-2px); box-shadow:7px 7px 0 rgba(33,31,26,0.18);}
+  .level-card:focus-visible{outline:3px solid var(--amber); outline-offset:2px;}
+  .level-card::before, .level-card::after{content:""; position:absolute; top:10px; width:7px; height:7px; border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, #dcd6c0, var(--teal-dark)); box-shadow:inset 0 0 0 1px rgba(0,0,0,.3);}
+  .level-card::before{left:10px;}
+  .level-card::after{right:10px;}
+  .level-card .spj{font-family:var(--font-mono); font-size:11.5px; letter-spacing:2px; color:var(--amber); text-transform:uppercase; font-weight:700;}
+  .level-card h3{font-family:var(--font-display); font-size:22px; margin:8px 0 4px; text-transform:uppercase; letter-spacing:.5px;}
+  .level-card .cefr{font-size:12px; color:var(--teal-dark); margin-bottom:10px; font-family:var(--font-mono);}
+  .level-card p.desc{font-size:13.5px; color:#40453A; margin:0 0 16px;}
+  .level-card .lvl-progress{display:flex; align-items:center; gap:10px;}
+  .lvl-bar{flex:1; height:8px; border-radius:2px; background:var(--paper-darker); overflow:hidden; border:1px solid var(--ink);}
+  .lvl-bar-fill{height:100%; background:repeating-linear-gradient(-45deg, var(--amber) 0 6px, var(--amber-light) 6px 12px);}
+  .lvl-progress .pct{font-family:var(--font-mono); font-size:12px; color:var(--teal-dark); min-width:34px; text-align:right; font-weight:700;}
+  .level-card .ring{display:none;}
+
+  .reset-row{margin-top:30px; text-align:center;}
+  .link-btn{background:none;border:none;color:var(--teal-dark);font-size:11.5px; text-decoration:underline; cursor:pointer; padding:6px; font-family:var(--font-mono); text-transform:uppercase; letter-spacing:.5px;}
+
+  .module-header{margin-bottom:18px;}
+  .module-header .eyebrow{font-family:var(--font-mono); font-size:11.5px; letter-spacing:2px; text-transform:uppercase; color:var(--amber); font-weight:700;}
+  .module-header h2{font-family:var(--font-display); font-size:25px; margin:5px 0 2px; text-transform:uppercase; letter-spacing:.5px;}
+
+  .tabs{display:flex; gap:3px; border-bottom:3px solid var(--ink); margin-bottom:22px; overflow-x:auto;}
+  .tab-btn{background:var(--paper-dark); border:1px solid var(--ink); border-bottom:none; cursor:pointer; padding:10px 14px; font-size:12px; font-weight:700;
+    color:var(--teal-dark); display:flex; align-items:center; gap:6px; white-space:nowrap; text-transform:uppercase; letter-spacing:.5px;
+    border-radius:3px 3px 0 0; margin-bottom:-3px;}
+  .tab-btn.active{color:var(--card); background:var(--navy); border-color:var(--ink);}
+  .tab-dot{width:7px;height:7px;border-radius:50%; background:var(--paper-darker); border:1px solid var(--ink);}
+  .tab-dot.done{background:var(--amber); border-color:var(--amber);}
+
+  .panel{display:none;}
+  .panel.active{display:block; animation:fadein .25s ease;}
+  @keyframes fadein{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;}}
+
+  .primary-btn{background:var(--amber); color:#fff; border:1.5px solid var(--ink); border-radius:3px; padding:12px 24px;
+    font-size:13px; font-weight:800; cursor:pointer; letter-spacing:1px; text-transform:uppercase; box-shadow:3px 3px 0 rgba(33,31,26,.25);}
+  .primary-btn:hover{background:var(--amber-light); transform:translate(-1px,-1px); box-shadow:4px 4px 0 rgba(33,31,26,.3);}
+  .primary-btn:disabled{opacity:.4; cursor:not-allowed; box-shadow:none; transform:none;}
+  .ghost-btn{background:var(--card); color:var(--teal-dark); border:1.5px solid var(--teal-dark); border-radius:3px;
+    padding:11px 22px; font-size:13px; font-weight:800; cursor:pointer; text-transform:uppercase; letter-spacing:1px;}
+  .ghost-btn:hover{background:var(--teal-dark); color:var(--card);}
+  .ghost-btn:disabled{opacity:.4; cursor:not-allowed;}
+  .small-btn{background:var(--card); border:1.5px solid var(--ink); border-radius:3px; padding:7px 13px; font-size:11.5px; font-weight:700; cursor:pointer; color:var(--ink); text-transform:uppercase; letter-spacing:.5px;}
+  .small-btn:hover{border-color:var(--amber); color:var(--amber);}
+  .icon-btn{background:var(--card); border:1.5px solid var(--ink); border-radius:3px; width:42px;height:42px;
+    display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:16px; color:var(--ink);}
+  .icon-btn:hover{background:var(--paper-dark);}
+  .icon-btn:disabled{opacity:.35; cursor:not-allowed;}
+
+  /* ---- Grammar module ---- */
+  .section-lbl{font-family:var(--font-mono); font-size:11.5px; letter-spacing:2px; text-transform:uppercase; color:var(--card); margin:30px 0 14px;
+    background:var(--navy); display:inline-block; padding:6px 14px; border-radius:2px; font-weight:700;}
+  .section-lbl:first-child{margin-top:0;}
+  .tense-card{background:var(--card); border:1.5px solid var(--ink); border-left:6px solid var(--amber); border-radius:3px; padding:20px 22px; margin-bottom:14px;}
+  .tense-head{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:10px;}
+  .tense-head h4{margin:0; font-family:var(--font-display); font-size:17px; text-transform:uppercase; letter-spacing:.5px;}
+  .tense-head .pl{font-family:var(--font-body); font-weight:400; font-size:13px; color:#5a5f52; text-transform:none; letter-spacing:0;}
+  .tense-block-lbl{font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:1px; color:var(--amber); margin:14px 0 6px; font-family:var(--font-mono);}
+  .tense-block-lbl:first-of-type{margin-top:0;}
+  .usage-list{margin:0; padding-left:18px; font-size:13.5px;}
+  .usage-list li{margin-bottom:4px;}
+  .struct-table{width:100%; border-collapse:collapse; font-size:13px;}
+  .struct-table td{padding:7px 8px; border-bottom:1px solid var(--line); vertical-align:top;}
+  .struct-table td:first-child{font-weight:800; width:110px; color:var(--teal-dark); text-transform:uppercase; font-size:11.5px; letter-spacing:.5px;}
+  .struct-table .formula{font-family:var(--font-mono); font-size:12px;}
+  .struct-table .ex{font-style:italic; color:#4a5248;}
+  .tag-list{display:flex; flex-wrap:wrap; gap:6px;}
+  .tag-chip{background:var(--paper); border:1px solid var(--ink); border-radius:2px; padding:4px 11px; font-size:12px; font-family:var(--font-mono);}
+  .phrase-mini{margin:0; padding-left:18px; font-size:13px;}
+  .phrase-mini li{margin-bottom:3px;}
+  .tense-foot{margin-top:14px; padding-top:12px; border-top:1px dashed var(--line); text-align:right;}
+
+  .ref-table{width:100%; border-collapse:collapse; background:var(--card); border:1.5px solid var(--ink); border-radius:3px; overflow:hidden; font-size:13px;}
+  .ref-table th{background:var(--navy); color:var(--card); text-align:left; padding:9px 12px; font-size:11px; text-transform:uppercase; letter-spacing:1px; font-weight:700; font-family:var(--font-mono);}
+  .ref-table td{padding:8px 12px; border-bottom:1px solid var(--line);}
+  .ref-table tr:last-child td{border-bottom:none;}
+  .ref-table-wrap{overflow-x:auto; margin-bottom:18px;}
+  .vocab-cat{background:var(--card); border:1.5px solid var(--ink); border-radius:3px; padding:16px 18px; margin-bottom:12px;}
+  .vocab-cat h5{margin:0 0 8px; font-family:var(--font-display); font-size:14px; text-transform:uppercase; letter-spacing:.5px;}
+  .vocab-chips{display:flex; flex-wrap:wrap; gap:8px;}
+  .vocab-chip{background:var(--paper); border:1px solid var(--line); border-radius:2px; padding:6px 10px; font-size:12.5px;}
+  .vocab-chip b{font-weight:700;}
+
+  .quiz-topic-btns{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;}
+  .quiz-topic-btn{background:var(--card); border:1.5px solid var(--ink); border-radius:3px; padding:9px 16px; font-size:12px; font-weight:700; cursor:pointer; text-transform:uppercase; letter-spacing:.5px;}
+  .quiz-topic-btn:hover{border-color:var(--amber); color:var(--amber);}
+  .quiz-topic-btn.active{background:var(--amber); border-color:var(--ink); color:#fff;}
+  .quiz-best{font-family:var(--font-mono); font-size:10.5px; color:#6b7268; display:block; margin-top:3px; text-transform:none; letter-spacing:0; font-weight:400;}
+
+  .exercise{background:var(--card); border:1.5px solid var(--ink); border-radius:3px; padding:16px 20px; margin-bottom:12px;}
+  .exercise .q{font-weight:700; margin-bottom:10px; font-size:14px;}
+  .options{display:flex; flex-direction:column; gap:8px;}
+  .option{display:flex; align-items:center; gap:10px; border:1.5px solid var(--line); border-radius:3px; padding:9px 12px; cursor:pointer; font-size:13.5px;}
+  .option:hover{border-color:var(--teal-dark);}
+  .option input{accent-color:var(--amber);}
+  .option.correct{border-color:var(--good); background:rgba(72,89,43,.12);}
+  .option.incorrect{border-color:var(--rust); background:rgba(126,31,31,.10);}
+  .exercise-feedback{margin-top:8px; font-size:12.5px; font-weight:700; text-transform:uppercase; letter-spacing:.5px;}
+  .exercise-feedback.good{color:var(--good);}
+  .exercise-feedback.bad{color:var(--rust);}
+  .score-banner{background:var(--navy); color:var(--card); border:1.5px solid var(--ink); border-radius:3px; padding:18px 22px; display:flex; align-items:center;
+    justify-content:space-between; margin-top:18px; gap:12px; flex-wrap:wrap;}
+  .score-banner .big{font-family:var(--font-display); font-size:24px; font-weight:900;}
+  .score-banner .lbl{font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:var(--amber-light); font-family:var(--font-mono);}
+
+  /* ---- Exam-set list (listening/reading) ---- */
+  .set-grid{display:flex; flex-direction:column; gap:12px;}
+  .set-card{background:var(--card); border:1.5px solid var(--ink); border-radius:3px; padding:16px 20px; display:flex; align-items:center;
+    justify-content:space-between; gap:14px; cursor:pointer; transition:transform .15s ease, box-shadow .15s ease;
+    box-shadow:4px 4px 0 rgba(33,31,26,.10);}
+  .set-card:hover{transform:translate(-2px,-2px); box-shadow:5px 5px 0 rgba(33,31,26,.16);}
+  .set-card .set-title{font-family:var(--font-display); font-size:15.5px; font-weight:800; text-transform:uppercase; letter-spacing:.5px;}
+  .set-card .set-meta{font-size:12px; color:#6b7268; margin-top:2px; font-family:var(--font-mono);}
+  .set-badge{width:24px;height:24px;border-radius:50%; border:2px solid var(--ink); flex-shrink:0; background:var(--paper-darker);}
+  .set-badge.done{background:var(--amber); border-color:var(--ink);}
+  .exam-banner{background:var(--navy); color:var(--card); border:1.5px solid var(--ink); border-radius:3px; padding:14px 18px; font-size:12.5px; margin-bottom:20px; display:flex; align-items:center; gap:10px;}
+  .exam-banner b{color:var(--amber-light);}
+
+  .reading-text{background:var(--card); border:1.5px solid var(--ink); border-radius:3px; padding:22px 24px; margin-bottom:22px; font-size:15px; line-height:1.75;}
+  .reading-text p{margin:0 0 12px;}
+  .reading-text p:last-child{margin:0;}
+
+  .listen-box{background:var(--card); border:1.5px solid var(--ink); border-radius:3px; padding:22px 24px; margin-bottom:22px;}
+  .listen-controls{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:14px;}
+  .listen-status{font-family:var(--font-mono); font-size:12px; color:var(--teal-dark); text-transform:uppercase; letter-spacing:.5px;}
+  .transcript{margin-top:16px; padding-top:14px; border-top:1px dashed var(--line); font-size:14px; line-height:1.7; display:none;}
+  .transcript.show{display:block;}
+  .transcript p{margin:0 0 8px;}
+  .tts-warning{background:rgba(126,31,31,.10); border:1.5px solid var(--rust); border-radius:3px; padding:12px 16px; font-size:12.5px; color:var(--rust); margin-bottom:14px;}
+
+  /* ---- Writing module ---- */
+  .prompt-grid{display:flex; flex-direction:column; gap:12px; margin-bottom:22px;}
+  .prompt-card{background:var(--card); border:1.5px solid var(--ink); border-radius:3px; padding:16px 20px; cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;}
+  .prompt-card:hover{transform:translate(-2px,-2px); box-shadow:4px 4px 0 rgba(33,31,26,.14);}
+  .prompt-card.selected{border-color:var(--amber); border-width:2.5px; box-shadow:3px 3px 0 var(--amber);}
+  .prompt-card .p-title{font-family:var(--font-display); font-size:15px; font-weight:800; text-transform:uppercase; letter-spacing:.5px;}
+  .prompt-card .p-meta{font-size:11.5px; color:#6b7268; margin-top:3px; font-family:var(--font-mono);}
+  .writing-prompt{background:var(--card); border:1.5px solid var(--ink); border-radius:3px; padding:20px 22px; margin-bottom:18px;}
+  .writing-prompt h4{margin:0 0 8px; font-family:var(--font-display); font-size:17px; text-transform:uppercase; letter-spacing:.5px;}
+  .writing-prompt p{margin:0; font-size:14px;}
+  .timer-box{display:flex; align-items:center; gap:14px; background:var(--navy); color:var(--card); border:1.5px solid var(--ink); border-radius:3px; padding:14px 20px; margin-bottom:16px; flex-wrap:wrap;}
+  .timer-box .clock{font-family:var(--font-mono); font-size:22px; font-weight:700; color:var(--amber-light);}
+  .timer-box .tlbl{font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:#b8b39e;}
+  textarea.writing-area{width:100%; min-height:180px; border:1.5px solid var(--ink); border-radius:3px; padding:14px;
+    font-family:var(--font-body); font-size:14px; resize:vertical; background:var(--card); color:var(--ink);}
+  textarea.writing-area:focus{outline:2px solid var(--amber); border-color:var(--amber);}
+  .word-count{font-family:var(--font-mono); font-size:11.5px; color:#6b7268; margin-top:6px; text-transform:uppercase; letter-spacing:.5px;}
+  .word-count.ok{color:var(--good);}
+  .action-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:16px;}
+  .save-msg{font-size:12.5px; font-weight:700; margin-top:10px; text-transform:uppercase; letter-spacing:.5px;}
+  .save-msg.good{color:var(--good);}
+  .save-msg.bad{color:var(--rust);}
+  .saved-list{margin-top:30px;}
+  .saved-item{background:var(--card); border:1.5px solid var(--ink); border-radius:3px; padding:16px 20px; margin-bottom:12px;}
+  .saved-item .si-head{display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;}
+  .saved-item .si-title{font-weight:800; font-size:14px; text-transform:uppercase; letter-spacing:.5px;}
+  .saved-item .si-meta{font-family:var(--font-mono); font-size:11px; color:#6b7268;}
+  .saved-item .si-text{margin-top:10px; font-size:13.5px; white-space:pre-wrap; line-height:1.6;}
+  .del-btn{background:var(--card); border:1.5px solid var(--rust); color:var(--rust); border-radius:3px; padding:6px 12px; font-size:11.5px; font-weight:800; cursor:pointer; text-transform:uppercase; letter-spacing:.5px;}
+  .del-btn:hover{background:var(--rust); color:#fff;}
+  .full-warning{background:rgba(126,31,31,.10); border:1.5px solid var(--rust); border-radius:3px; padding:12px 16px; font-size:12.5px; color:var(--rust); margin-bottom:16px;}
+
+  /* ---- Speaking module ---- */
+  .speak-sub-lbl{font-family:var(--font-display); font-size:19px; margin:0 0 6px; text-transform:uppercase; letter-spacing:.5px;}
+  .speak-sub-desc{font-size:13px; color:#40453A; margin:0 0 16px; max-width:65ch;}
+  .readaloud-card{background:var(--card); border:1.5px solid var(--ink); border-radius:3px; padding:20px 22px; margin-bottom:14px;}
+  .readaloud-card .ra-text{font-size:15px; line-height:1.75; margin-bottom:14px;}
+  .ra-controls{display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+  .ra-status{font-family:var(--font-mono); font-size:11.5px; color:var(--teal-dark); text-transform:uppercase;}
+  .toggle-btn{background:var(--card); border:1.5px solid var(--ink); border-radius:3px; padding:8px 14px; font-size:11.5px; font-weight:700; cursor:pointer; text-transform:uppercase; letter-spacing:.5px;}
+  .toggle-btn.on{background:var(--good); border-color:var(--ink); color:#fff;}
+
+  .exam-card{background:var(--card); border:1.5px solid var(--ink); border-radius:3px; padding:28px 26px; max-width:520px; margin:0 auto 18px;
+    box-shadow:5px 5px 0 rgba(33,31,26,.14);}
+  .exam-card .ec-counter{font-family:var(--font-mono); font-size:11.5px; color:#6b7268; margin-bottom:12px; text-align:center; text-transform:uppercase; letter-spacing:1px;}
+  .exam-card .ec-q{font-family:var(--font-display); font-size:18px; font-weight:800; text-align:center; margin-bottom:16px; text-transform:none;}
+  .exam-card .ec-tips{display:none; background:var(--paper); border:1px solid var(--line); border-radius:3px; padding:14px 16px; margin-top:10px;}
+  .exam-card .ec-tips.show{display:block;}
+  .exam-card .ec-tips-lbl{font-family:var(--font-mono); font-size:10.5px; text-transform:uppercase; letter-spacing:1.5px; color:var(--amber); margin-bottom:8px; font-weight:700;}
+  .exam-card .ec-tips ul{margin:0; padding-left:18px; font-size:13px;}
+  .exam-card .ec-tips ul li{margin-bottom:4px;}
+  .ec-nav{display:flex; align-items:center; justify-content:center; gap:14px;}
+
+  .stamp-overlay{position:fixed; inset:0; background:rgba(33,31,26,.65); display:flex; align-items:center; justify-content:center;
+    z-index:50; opacity:0; pointer-events:none; transition:opacity .2s ease;}
+  .stamp-overlay.show{opacity:1; pointer-events:auto;}
+  .stamp-graphic{width:180px; height:180px; border-radius:50%; border:6px double var(--stamp); display:flex; align-items:center;
+    justify-content:center; flex-direction:column; color:var(--stamp); background:rgba(126,31,31,.05);
+    transform:scale(0) rotate(-18deg); box-shadow:0 0 0 4px rgba(126,31,31,.12) inset;}
+  .stamp-overlay.show .stamp-graphic{animation:stampdown .4s cubic-bezier(.2,1.6,.4,1) forwards;}
+  @keyframes stampdown{0%{transform:scale(2.2) rotate(-18deg); opacity:0;} 60%{transform:scale(.92) rotate(-9deg); opacity:1;} 100%{transform:scale(1) rotate(-9deg); opacity:1;}}
+  .stamp-graphic .s1{font-family:var(--font-display); font-weight:900; font-size:14px; letter-spacing:3px;}
+  .stamp-graphic .s2{font-family:var(--font-display); font-weight:900; font-size:17px; margin:3px 0; text-align:center; padding:0 10px; text-transform:uppercase;}
+  .stamp-graphic .s3{font-family:var(--font-mono); font-size:10.5px; letter-spacing:1px;}
+  .stamp-caption{position:absolute; bottom:26%; color:var(--card); text-align:center; font-size:13px; font-family:var(--font-mono); text-transform:uppercase; letter-spacing:1px;}
+
+  footer{text-align:center; padding:30px 18px 40px; font-size:11.5px; color:var(--teal-dark); font-family:var(--font-mono);}
+
+  /* ---- Mobile phone optimizations ---- */
+  @media (max-width:600px){
+    main{padding:20px 12px 60px;}
+    .top-inner{gap:8px;}
+    .brand{gap:10px;}
+    .brand-mark{width:38px;height:42px;font-size:13px;}
+    .brand h1{font-size:16.5px; letter-spacing:1px;}
+    .brand p{font-size:9.5px; letter-spacing:1.5px;}
+    .stats-chip{font-size:10.5px; padding:6px 11px;}
+    .intro h2{font-size:19px;}
+    .intro p{font-size:13.5px;}
+    .module-header h2{font-size:20px;}
+    .level-card{padding:16px;}
+    .level-card h3{font-size:18px;}
+    .level-card p.desc{font-size:12.5px;}
+    .tabs{gap:2px;}
+    .tab-btn{padding:9px 10px; font-size:10.5px; min-height:40px;}
+    .section-lbl{font-size:10.5px; padding:5px 11px;}
+    .tense-card{padding:16px 14px;}
+    .tense-head h4{font-size:15px;}
+    .struct-table{font-size:11.5px;}
+    .struct-table td:first-child{width:76px; font-size:10px;}
+    .struct-table .formula{font-size:11px;}
+    .ref-table{font-size:12px;}
+    .ref-table th{font-size:10px; padding:8px 9px;}
+    .ref-table td{padding:7px 9px;}
+    .set-card{padding:14px 15px;}
+    .set-card .set-title{font-size:14px;}
+    .exam-banner{font-size:11.5px; padding:12px 14px;}
+    .reading-text, .listen-box{padding:18px 16px; font-size:14px;}
+    .writing-prompt{padding:16px 16px;}
+    .writing-prompt h4{font-size:15.5px;}
+    .timer-box{padding:12px 14px; gap:10px;}
+    .timer-box .clock{font-size:19px;}
+    textarea.writing-area{min-height:150px; font-size:13.5px; padding:12px;}
+    .prompt-card{padding:14px 15px;}
+    .prompt-card .p-title{font-size:13.5px;}
+    .readaloud-card{padding:16px 16px;}
+    .readaloud-card .ra-text{font-size:14px;}
+    .exam-card{padding:22px 18px; max-width:100%;}
+    .exam-card .ec-q{font-size:16px;}
+    .saved-item{padding:14px 15px;}
+    .primary-btn, .ghost-btn{padding:11px 18px; font-size:12.5px; width:100%; text-align:center;}
+    .action-row{flex-direction:column;}
+    .action-row .primary-btn, .action-row .ghost-btn, .action-row .small-btn{width:100%;}
+    .icon-btn{width:44px; height:44px;}
+    .quiz-topic-btn{padding:9px 13px; font-size:11.5px;}
+    .score-banner{padding:16px 18px;}
+    .score-banner .big{font-size:21px;}
+  }
+
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="brand" id="brandHome" role="button" tabindex="0" aria-label="Wróć do strony głównej">
+      <div class="brand-mark">EN</div>
+      <div>
+        <h1>Angielski Paszport</h1>
+        <p>Przygotowanie do STANAG 6001</p>
+      </div>
+    </div>
+    <div class="stats-chip" id="statsChip">0 / 10 modułów</div>
+  </div>
+</header>
+
+<main id="main"></main>
+
+<footer>Aplikacja działa w pełni offline — po pobraniu nie wymaga internetu. Postępy zapisują się lokalnie w tej przeglądarce. Materiały to autorskie przygotowanie do egzaminu i nie są oficjalnymi arkuszami MON.</footer>
+
+<div class="stamp-overlay" id="stampOverlay">
+  <div class="stamp-graphic">
+    <div class="s1">UKOŃCZONO</div>
+    <div class="s2" id="stampUnitLabel">MODUŁ</div>
+    <div class="s3" id="stampSectionLabel"></div>
+  </div>
+  <div class="stamp-caption" id="stampCaption"></div>
+</div>
+
+<script>
+/* =========================================================
+   REFERENCE DATA (shared across levels)
+   ========================================================= */
+const RANKS = [
+  {en:"Private", pl:"Szeregowy"},
+  {en:"Private First Class", pl:"Starszy szeregowy"},
+  {en:"Corporal", pl:"Kapral"},
+  {en:"Sergeant", pl:"Sierżant"},
+  {en:"Staff Sergeant", pl:"Starszy sierżant"},
+  {en:"Warrant Officer", pl:"Chorąży"},
+  {en:"Second Lieutenant", pl:"Podporucznik"},
+  {en:"Lieutenant", pl:"Porucznik"},
+  {en:"Captain", pl:"Kapitan"},
+  {en:"Major", pl:"Major"},
+  {en:"Lieutenant Colonel", pl:"Podpułkownik"},
+  {en:"Colonel", pl:"Pułkownik"},
+  {en:"General", pl:"Generał"}
+];
+
+const EVERYDAY_VOCAB = [
+  {category:"Dni tygodnia", items:[
+    {en:"Monday",pl:"poniedziałek"},{en:"Tuesday",pl:"wtorek"},{en:"Wednesday",pl:"środa"},
+    {en:"Thursday",pl:"czwartek"},{en:"Friday",pl:"piątek"},{en:"Saturday",pl:"sobota"},{en:"Sunday",pl:"niedziela"}
+  ]},
+  {category:"Wyrażenia czasu", items:[
+    {en:"today",pl:"dzisiaj"},{en:"tomorrow",pl:"jutro"},{en:"yesterday",pl:"wczoraj"},
+    {en:"this morning",pl:"dziś rano"},{en:"tonight",pl:"dziś wieczorem"},
+    {en:"next week",pl:"w przyszłym tygodniu"},{en:"last month",pl:"w zeszłym miesiącu"}
+  ]},
+  {category:"Częste czasowniki", items:[
+    {en:"to be",pl:"być"},{en:"to have",pl:"mieć"},{en:"to go",pl:"iść / jechać"},{en:"to do",pl:"robić"},
+    {en:"to make",pl:"robić / wytwarzać"},{en:"to take",pl:"brać"},{en:"to need",pl:"potrzebować"},
+    {en:"to want",pl:"chcieć"},{en:"to like",pl:"lubić"},{en:"to know",pl:"wiedzieć / znać"}
+  ]}
+];
+
+const IRREGULAR_CORE = [
+  {base:"be", past:"was/were", part:"been", pl:"być"},
+  {base:"have", past:"had", part:"had", pl:"mieć"},
+  {base:"do", past:"did", part:"done", pl:"robić"},
+  {base:"go", past:"went", part:"gone", pl:"iść / jechać"},
+  {base:"get", past:"got", part:"got", pl:"dostać / stać się"},
+  {base:"make", past:"made", part:"made", pl:"robić / wytwarzać"},
+  {base:"take", past:"took", part:"taken", pl:"brać"},
+  {base:"come", past:"came", part:"come", pl:"przyjść"},
+  {base:"see", past:"saw", part:"seen", pl:"widzieć"},
+  {base:"say", past:"said", part:"said", pl:"powiedzieć"},
+  {base:"know", past:"knew", part:"known", pl:"wiedzieć / znać"},
+  {base:"give", past:"gave", part:"given", pl:"dać"},
+  {base:"find", past:"found", part:"found", pl:"znaleźć"},
+  {base:"think", past:"thought", part:"thought", pl:"myśleć"},
+  {base:"tell", past:"told", part:"told", pl:"powiedzieć (komuś)"}
+];
+const IRREGULAR_EXTRA = [
+  {base:"write", past:"wrote", part:"written", pl:"pisać"},
+  {base:"read", past:"read", part:"read", pl:"czytać"},
+  {base:"speak", past:"spoke", part:"spoken", pl:"mówić"},
+  {base:"buy", past:"bought", part:"bought", pl:"kupować"},
+  {base:"bring", past:"brought", part:"brought", pl:"przynosić"},
+  {base:"catch", past:"caught", part:"caught", pl:"łapać"},
+  {base:"choose", past:"chose", part:"chosen", pl:"wybierać"},
+  {base:"drive", past:"drove", part:"driven", pl:"prowadzić (pojazd)"},
+  {base:"eat", past:"ate", part:"eaten", pl:"jeść"},
+  {base:"feel", past:"felt", part:"felt", pl:"czuć"}
+];
+
+/* =========================================================
+   LEVELS — edit / extend this structure to add your own materials.
+   Each level has exactly 5 modules: grammar, listening, reading, writing, speaking.
+   ========================================================= */
+const LEVELS = [
+  {
+    id:"p1", code:"SPJ 1111", label:"Poziom 1", subtitle:"Poziom podstawowy (survival)", cefr:"ok. A1–A2 wg CEFR",
+    desc:"Podstawowe czasy, proste sytuacje codzienne i wojskowe, egzaminacyjne zadania na poziomie podstawowym.",
+    grammar:{
+      tenses:[
+        {
+          id:"presSimple", name:"Present Simple", namePl:"Czas teraźniejszy prosty",
+          usage:["czynności stałe, nawyki i rutyna (np. harmonogram służby)","fakty ogólne i stałe stany","rozkłady i plany o stałych porach (np. odprawa codziennie o 8:00)"],
+          structure:{
+            affirmative:{formula:"podmiot + czasownik (+s dla he/she/it)", example:"I work. / He works."},
+            negative:{formula:"podmiot + don't/doesn't + czasownik", example:"I don't work. / He doesn't work."},
+            question:{formula:"Do/Does + podmiot + czasownik?", example:"Do you work? / Does he work?"}
+          },
+          signalWords:["always","usually","often","sometimes","never","every day/week","on Mondays","normally"],
+          usefulPhrases:["The briefing starts at...","I report to...","We usually have training in the morning."]
+        },
+        {
+          id:"presCont", name:"Present Continuous", namePl:"Czas teraźniejszy ciągły",
+          usage:["czynność trwająca w danym momencie (teraz)","czynność zaplanowana w bliskiej przyszłości","sytuacje tymczasowe"],
+          structure:{
+            affirmative:{formula:"podmiot + am/is/are + czasownik-ing", example:"I am training."},
+            negative:{formula:"podmiot + am/is/are + not + czasownik-ing", example:"He isn't training."},
+            question:{formula:"Am/Is/Are + podmiot + czasownik-ing?", example:"Are you training?"}
+          },
+          signalWords:["now","at the moment","right now","currently","look!","listen!"],
+          usefulPhrases:["We are moving to position now.","The patrol is checking the perimeter at the moment."]
+        },
+        {
+          id:"pastSimple", name:"Past Simple", namePl:"Czas przeszły prosty",
+          usage:["zakończone czynności w przeszłości z podanym lub domyślnym czasem","sekwencje wydarzeń w przeszłości"],
+          structure:{
+            affirmative:{formula:"podmiot + czasownik+ed / forma nieregularna", example:"I worked. / I went."},
+            negative:{formula:"podmiot + didn't + czasownik (forma podstawowa)", example:"I didn't go."},
+            question:{formula:"Did + podmiot + czasownik?", example:"Did you go?"}
+          },
+          signalWords:["yesterday","last week/month/year","in 2020","...ago","when I was a soldier"],
+          usefulPhrases:["The patrol reported at 0600.","We secured the area yesterday."]
+        },
+        {
+          id:"futureWill", name:"Future Simple (will)", namePl:"Czas przyszły prosty",
+          usage:["decyzje podejmowane w danej chwili (spontaniczne)","przewidywania, obietnice, prośby"],
+          structure:{
+            affirmative:{formula:"podmiot + will + czasownik", example:"I will report."},
+            negative:{formula:"podmiot + won't + czasownik", example:"I won't be late."},
+            question:{formula:"Will + podmiot + czasownik?", example:"Will you report?"}
+          },
+          signalWords:["tomorrow","next week","soon","I think","probably","I'm sure"],
+          usefulPhrases:["I will report to the commander.","We will secure the perimeter."]
+        },
+        {
+          id:"futureGoing", name:"Future (going to)", namePl:"Czas przyszły — zamiary i plany",
+          usage:["plany i zamiary już podjęte","przewidywania na podstawie widocznych dowodów"],
+          structure:{
+            affirmative:{formula:"podmiot + am/is/are + going to + czasownik", example:"I am going to train."},
+            negative:{formula:"podmiot + am/is/are + not + going to + czasownik", example:"She isn't going to report."},
+            question:{formula:"Am/Is/Are + podmiot + going to + czasownik?", example:"Is he going to report?"}
+          },
+          signalWords:["this evening","next month","already decided"],
+          usefulPhrases:["We are going to start training at 0800.","He is going to report tomorrow."]
+        }
+      ],
+      quizBank:[
+        {topic:"presSimple", q:"The briefing ___ at eight every day.", options:["start","starts","starting"], answer:1},
+        {topic:"presSimple", q:"We ___ (not/work) on Sundays.", options:["don't work","doesn't work","not work"], answer:0},
+        {topic:"presSimple", q:"___ you report to the commander every morning?", options:["Do","Does","Are"], answer:0},
+        {topic:"presSimple", q:"He ___ (go) to training every day.", options:["go","goes","going"], answer:1},
+        {topic:"presSimple", q:"I ___ (have) guard duty on Mondays.", options:["have","has","having"], answer:0},
+        {topic:"presSimple", q:"She ___ (not/like) night shifts.", options:["don't like","doesn't like","not likes"], answer:1},
+        {topic:"presSimple", q:"The soldiers ___ (wake up) at six.", options:["wake up","wakes up","waking up"], answer:0},
+        {topic:"presSimple", q:"___ he speak English well?", options:["Do","Does","Is"], answer:1},
+        {topic:"presSimple", q:"We ___ (not/have) a briefing on weekends.", options:["don't have","doesn't have","not have"], answer:0},
+        {topic:"presSimple", q:"The mess hall ___ (open) at seven.", options:["open","opens","opening"], answer:1},
+
+        {topic:"presCont", q:"Look! The patrol ___ (check) the gate.", options:["checks","is checking","checked"], answer:1},
+        {topic:"presCont", q:"I ___ (write) a report right now.", options:["write","am writing","wrote"], answer:1},
+        {topic:"presCont", q:"They ___ (not/train) at the moment.", options:["don't train","aren't training","isn't training"], answer:1},
+        {topic:"presCont", q:"___ you ___ (listen) to the radio now?", options:["Are / listening","Do / listen","Is / listening"], answer:0},
+        {topic:"presCont", q:"We ___ (move) to position at the moment.", options:["move","are moving","moved"], answer:1},
+        {topic:"presCont", q:"He ___ (not/wear) his uniform right now.", options:["doesn't wear","isn't wearing","don't wear"], answer:1},
+        {topic:"presCont", q:"The commander ___ (speak) on the radio now.", options:["speaks","is speaking","spoke"], answer:1},
+        {topic:"presCont", q:"___ the soldiers ___ (wait) at the checkpoint?", options:["Are / waiting","Do / wait","Is / waiting"], answer:0},
+        {topic:"presCont", q:"I ___ (not/work) this weekend — I'm on leave.", options:["don't work","am not working","didn't work"], answer:1},
+        {topic:"presCont", q:"She ___ (prepare) the briefing at the moment.", options:["prepares","is preparing","prepared"], answer:1},
+
+        {topic:"pastSimple", q:"The patrol ___ (report) at 0600 yesterday.", options:["report","reports","reported"], answer:2},
+        {topic:"pastSimple", q:"We ___ (not/see) anything unusual.", options:["didn't see","doesn't see","don't saw"], answer:0},
+        {topic:"pastSimple", q:"___ you ___ (go) to the base yesterday?", options:["Did / go","Do / go","Did / went"], answer:0},
+        {topic:"pastSimple", q:"He ___ (arrive) late last night.", options:["arrive","arrives","arrived"], answer:2},
+        {topic:"pastSimple", q:"They ___ (not/have) training last week.", options:["didn't have","doesn't have","didn't had"], answer:0},
+        {topic:"pastSimple", q:"I ___ (secure) the perimeter this morning.", options:["secure","secured","secures"], answer:1},
+        {topic:"pastSimple", q:"___ the commander ___ (speak) to you?", options:["Did / speak","Did / spoke","Does / speak"], answer:0},
+        {topic:"pastSimple", q:"She ___ (write) the report yesterday.", options:["write","writed","wrote"], answer:2},
+        {topic:"pastSimple", q:"We ___ (not/finish) the exercise on time.", options:["didn't finish","doesn't finish","didn't finished"], answer:0},
+        {topic:"pastSimple", q:"He ___ (go) to the checkpoint an hour ago.", options:["go","went","goes"], answer:1},
+
+        {topic:"futureWill", q:"I think it ___ (rain) tomorrow.", options:["rains","will rain","rained"], answer:1},
+        {topic:"futureWill", q:"We ___ (not/be) late, I promise.", options:["won't be","don't be","aren't"], answer:0},
+        {topic:"futureWill", q:"___ you ___ (help) me with this report?", options:["Will / help","Do / help","Are / helping"], answer:0},
+        {topic:"futureWill", q:"He ___ (report) to the commander tomorrow.", options:["reports","will report","reported"], answer:1},
+        {topic:"futureWill", q:"I'm sure they ___ (finish) the mission on time.", options:["finish","will finish","finished"], answer:1},
+        {topic:"futureWill", q:"We ___ (not/have) training next Sunday.", options:["won't have","don't have","didn't have"], answer:0},
+        {topic:"futureWill", q:"___ the patrol ___ (return) before dark?", options:["Will / return","Does / return","Is / returning"], answer:0},
+        {topic:"futureWill", q:"She ___ (call) you as soon as possible.", options:["calls","will call","called"], answer:1},
+        {topic:"futureWill", q:"I ___ (not/forget) your orders.", options:["won't forget","don't forget","didn't forget"], answer:0},
+        {topic:"futureWill", q:"___ we ___ (win) this exercise?", options:["Will / win","Do / win","Are / winning"], answer:0},
+
+        {topic:"futureGoing", q:"We ___ (start) training at 0800 tomorrow.", options:["start","are going to start","started"], answer:1},
+        {topic:"futureGoing", q:"He ___ (not/report) today — he's on leave.", options:["doesn't report","isn't going to report","didn't report"], answer:1},
+        {topic:"futureGoing", q:"___ you ___ (join) the mission next month?", options:["Are / going to join","Do / join","Will / joining"], answer:0},
+        {topic:"futureGoing", q:"Look at those clouds — it ___ (rain).", options:["rains","is going to rain","rained"], answer:1},
+        {topic:"futureGoing", q:"They ___ (have) a briefing this evening.", options:["have","are going to have","had"], answer:1},
+        {topic:"futureGoing", q:"I ___ (not/go) to the mess hall now.", options:["don't go","am not going to go","didn't go"], answer:1},
+        {topic:"futureGoing", q:"___ she ___ (speak) at the meeting?", options:["Is / going to speak","Does / speak","Will / speaking"], answer:0},
+        {topic:"futureGoing", q:"We ___ (move) to a new base next year.", options:["move","are going to move","moved"], answer:1},
+        {topic:"futureGoing", q:"He ___ (not/take) part in the exercise.", options:["doesn't take","isn't going to take","didn't take"], answer:1},
+        {topic:"futureGoing", q:"___ they ___ (arrive) tomorrow morning?", options:["Are / going to arrive","Do / arrive","Will / arriving"], answer:0}
+      ]
+    },
+    listening:[
+      {
+        id:"p1l1", title:"Zestaw egzaminacyjny 1", meta:"Dialog · przedstawianie się",
+        transcript:[
+          "New soldier: Hello, my name is Tomek. I'm new here.",
+          "Sergeant: Hi Tomek, welcome to the base. What's your rank?",
+          "New soldier: I'm a private.",
+          "Sergeant: Good. And where are you from?",
+          "New soldier: I'm from Gdańsk.",
+          "Sergeant: Nice. Your unit is Bravo Company. Follow me, please."
+        ],
+        questions:[
+          {q:"What is Tomek's rank?", options:["Sergeant","Private","Captain"], answer:1},
+          {q:"Where is Tomek from?", options:["Gdańsk","Wrocław","Poznań"], answer:0},
+          {q:"What is Tomek's unit?", options:["Alpha Company","Bravo Company","Delta Company"], answer:1},
+          {q:"Tomek is a sergeant.", options:["True","False"], answer:1}
+        ]
+      },
+      {
+        id:"p1l2", title:"Zestaw egzaminacyjny 2", meta:"Dialog · harmonogram dnia",
+        transcript:[
+          "Soldier A: What time is the briefing today?",
+          "Soldier B: It's at eight, right after breakfast.",
+          "Soldier A: And do we have training this afternoon?",
+          "Soldier B: Yes, we do. Physical training at two o'clock.",
+          "Soldier A: OK, thanks. Do you have guard duty tonight?",
+          "Soldier B: No, I don't. I have free time tonight."
+        ],
+        questions:[
+          {q:"What time is the briefing?", options:["Seven","Eight","Nine"], answer:1},
+          {q:"What time is training this afternoon?", options:["One o'clock","Two o'clock","Three o'clock"], answer:1},
+          {q:"Does Soldier B have guard duty tonight?", options:["Yes","No","He isn't sure"], answer:1},
+          {q:"Soldier B has guard duty tonight.", options:["True","False"], answer:1}
+        ]
+      },
+      {
+        id:"p1l3", title:"Zestaw egzaminacyjny 3", meta:"Dialog · polecenia i droga",
+        transcript:[
+          "Officer: Private, report to the checkpoint immediately.",
+          "Private: Yes, sir. How do I get there?",
+          "Officer: Go straight ahead, then turn right at the barracks.",
+          "Private: Turn right at the barracks. Understood.",
+          "Officer: Good. Wait there for further instructions.",
+          "Private: Yes, sir."
+        ],
+        questions:[
+          {q:"Where does the officer send the private?", options:["The gate","The checkpoint","The mess hall"], answer:1},
+          {q:"Where should the private turn right?", options:["At the gate","At the barracks","At the mess hall"], answer:1},
+          {q:"What does the private do at the checkpoint?", options:["Waits for instructions","Goes back","Reports to the mess hall"], answer:0},
+          {q:"The private turns left at the barracks.", options:["True","False"], answer:1}
+        ]
+      }
+    ],
+    reading:[
+      {
+        id:"p1r1", title:"Zestaw egzaminacyjny 1", meta:"Tekst · dane osobowe",
+        text:[
+          "My name is Michał Kowalski. I am a private in the Polish Army. My unit is the 12th Mechanized Brigade. I am twenty-four years old, and my hometown is Wrocław.",
+          "I live on the base with other soldiers. My best friend here is Adam; he is a sergeant. We work together every day."
+        ],
+        questions:[
+          {q:"What is Michał's rank?", options:["Sergeant","Private","Captain"], answer:1},
+          {q:"What is his hometown?", options:["Poznań","Kraków","Wrocław"], answer:2},
+          {q:"What is Adam's rank?", options:["Private","Sergeant","Colonel"], answer:1},
+          {q:"Michał's rank is private.", options:["True","False"], answer:0}
+        ]
+      },
+      {
+        id:"p1r2", title:"Zestaw egzaminacyjny 2", meta:"Tekst · dzień na bazie",
+        text:[
+          "Every day starts early on the base. The wake-up call is at six o'clock. After that, soldiers have breakfast in the mess hall. At eight, there is a briefing with the commander.",
+          "In the morning, we have training — running, exercises, and sometimes shooting practice. In the afternoon, some soldiers have guard duty.",
+          "In the evening, we have free time — we can read, watch TV, or call our families."
+        ],
+        questions:[
+          {q:"What time is the wake-up call?", options:["Five","Six","Seven"], answer:1},
+          {q:"What time is the briefing?", options:["Seven","Eight","Nine"], answer:1},
+          {q:"What do soldiers do in the evening?", options:["Guard duty","Training","Free time"], answer:2},
+          {q:"There is a briefing before breakfast.", options:["True","False"], answer:1}
+        ]
+      },
+      {
+        id:"p1r3", title:"Zestaw egzaminacyjny 3", meta:"Tekst · wskazywanie drogi",
+        text:[
+          "\"Excuse me, how do I get to the motor pool?\" asks a new soldier.",
+          "\"Go straight ahead, then turn left at the checkpoint,\" says the sergeant. \"The motor pool is next to the gate. You can't miss it.\"",
+          "\"Thank you very much!\" says the soldier, and walks straight ahead."
+        ],
+        questions:[
+          {q:"What does the soldier want to find?", options:["The gate","The motor pool","The mess hall"], answer:1},
+          {q:"Where should the soldier turn left?", options:["At the gate","At the checkpoint","At the mess hall"], answer:1},
+          {q:"What is next to the gate?", options:["The mess hall","The barracks","The motor pool"], answer:2},
+          {q:"The soldier turns right at the checkpoint.", options:["True","False"], answer:1}
+        ]
+      }
+    ],
+    writing:{
+      prompts:[
+        {id:"p1w1", title:"Krótka wiadomość", timeLimitMin:15, wordTarget:"50–70 słów",
+          instructions:"Write a short message (50–70 words) to a colleague in your unit. Introduce yourself, mention your rank and unit, and ask about tomorrow's briefing time."},
+        {id:"p1w2", title:"Opis dnia", timeLimitMin:15, wordTarget:"50–70 słów",
+          instructions:"Describe your typical day on the base (50–70 words). Include at least three time expressions (e.g. at seven, in the morning)."},
+        {id:"p1w3", title:"Notatka służbowa", timeLimitMin:15, wordTarget:"50–70 słów",
+          instructions:"Write a short note (50–70 words) for your commander explaining that you will be late for training tomorrow, and why."}
+      ]
+    },
+    speaking:{
+      readAloud:[
+        {id:"p1sa1", title:"Przedstawianie się", text:"Good morning. My name is Corporal Nowak. I am twenty-six years old, and I come from Poznań. I have been a soldier for three years. Every day, I wake up at six o'clock, I have breakfast, and I go to training."},
+        {id:"p1sa2", title:"Pytanie o drogę", text:"Excuse me, could you tell me how to get to the mess hall? Go straight ahead, then turn left at the gate. The mess hall is next to the barracks. Thank you very much for your help."},
+        {id:"p1sa3", title:"Plan dnia", text:"Today, we have a briefing at eight o'clock. After that, we have physical training in the morning, and guard duty in the afternoon. In the evening, we have free time."}
+      ],
+      examCards:[
+        {q:"What is your name and rank?", tips:["My name is...","I am a... (rank)"]},
+        {q:"Where are you from?", tips:["I am from...","My hometown is..."]},
+        {q:"What is your unit?", tips:["My unit is...","I belong to..."]},
+        {q:"Describe your typical day on the base.", tips:["I wake up at...","I have... at...","In the evening, I..."]},
+        {q:"What time does the briefing start?", tips:["The briefing starts at..."]},
+        {q:"How do you get from the barracks to the mess hall?", tips:["Go straight ahead...","Turn left/right at...","It's next to..."]},
+        {q:"Do you like your job? Why?", tips:["Yes/No, because...","I like/don't like..."]},
+        {q:"What do you do in your free time?", tips:["In my free time, I..."]},
+        {q:"Who is your commanding officer?", tips:["My commanding officer is..."]},
+        {q:"Do you have a family? Tell me about them.", tips:["I have...","I am married / single..."]}
+      ]
+    }
+  },
+  {
+    id:"p2", code:"SPJ 2222", label:"Poziom 2", subtitle:"Poziom funkcjonalny (operacyjny)", cefr:"ok. B1–B2 wg CEFR",
+    desc:"Rozszerzone czasy i konstrukcje, meldunki, komunikacja radiowa, opinie — egzaminacyjne zadania na poziomie funkcjonalnym.",
+    grammar:{
+      tenses:[
+        {
+          id:"presPerfect", name:"Present Perfect", namePl:"Czas teraźniejszy dokonany",
+          usage:["doświadczenia życiowe (bez podania konkretnego czasu)","czynności rozpoczęte w przeszłości i trwające do teraz (for/since)","czynności zakończone niedawno z widocznym efektem"],
+          structure:{
+            affirmative:{formula:"podmiot + have/has + III forma", example:"I have completed the training."},
+            negative:{formula:"podmiot + haven't/hasn't + III forma", example:"She hasn't finished yet."},
+            question:{formula:"Have/Has + podmiot + III forma?", example:"Have you been on a mission?"}
+          },
+          signalWords:["already","just","yet","never","ever","since","for","so far"],
+          usefulPhrases:["I have completed the mission.","We have never trained in these conditions before."]
+        },
+        {
+          id:"pastCont", name:"Past Continuous", namePl:"Czas przeszły ciągły",
+          usage:["czynność trwająca w konkretnym momencie w przeszłości","czynność przerwana przez inne wydarzenie (Past Simple)","dwie czynności trwające równolegle w przeszłości"],
+          structure:{
+            affirmative:{formula:"podmiot + was/were + czasownik-ing", example:"I was training."},
+            negative:{formula:"podmiot + wasn't/weren't + czasownik-ing", example:"They weren't listening."},
+            question:{formula:"Was/Were + podmiot + czasownik-ing?", example:"Were you sleeping?"}
+          },
+          signalWords:["while","when","at that moment","all day yesterday"],
+          usefulPhrases:["We were patrolling the area when the alarm went off.","While I was reporting, the radio failed."]
+        },
+        {
+          id:"firstCond", name:"First Conditional", namePl:"Pierwszy tryb warunkowy",
+          usage:["realne, prawdopodobne sytuacje w przyszłości i ich skutki"],
+          structure:{
+            affirmative:{formula:"If + Present Simple, ... will + czasownik", example:"If we train hard, we will pass the exam."},
+            negative:{formula:"If + Present Simple (przeczenie), ... won't + czasownik", example:"If we don't hurry, we won't make it."},
+            question:{formula:"What will happen if...? / Will...  if...?", example:"What will happen if the plan fails?"}
+          },
+          signalWords:["if","unless","as soon as","when"],
+          usefulPhrases:["If the weather is bad, we will postpone the exercise.","Unless you report now, you will be late."]
+        },
+        {
+          id:"passive", name:"Passive Voice (Present & Past Simple)", namePl:"Strona bierna",
+          usage:["gdy wykonawca czynności jest nieznany, nieważny lub oczywisty","w raportach, procedurach i instrukcjach wojskowych"],
+          structure:{
+            affirmative:{formula:"podmiot + am/is/are/was/were + III forma", example:"The report is written every day. / The order was given yesterday."},
+            negative:{formula:"podmiot + am/is/are/was/were + not + III forma", example:"The mission wasn't completed on time."},
+            question:{formula:"Am/Is/Are/Was/Were + podmiot + III forma?", example:"Was the order given yesterday?"}
+          },
+          signalWords:["by (dla wykonawcy)","w raportach i instrukcjach"],
+          usefulPhrases:["The mission was completed successfully.","Orders are given every morning."]
+        },
+        {
+          id:"reported", name:"Reported Speech", namePl:"Mowa zależna (twierdzenia)",
+          usage:["relacjonowanie tego, co ktoś powiedział, bez cytowania dosłownie"],
+          structure:{
+            affirmative:{formula:"said/told (that) + podmiot + czasownik cofnięty o jeden czas wstecz", example:"He said that he was tired. (is → was)"},
+            negative:{formula:"said/told (that) + podmiot + przeczenie w cofniętym czasie", example:"She said she didn't know."},
+            question:{formula:"asked + if/whether + podmiot + czasownik cofnięty", example:"He asked if I was ready."}
+          },
+          signalWords:["said","told","reported","asked"],
+          usefulPhrases:["The commander said that the mission was completed.","She told me that she would report later."]
+        }
+      ],
+      quizBank:[
+        {topic:"presPerfect", q:"I ___ (complete) the training course.", options:["complete","completed","have completed"], answer:2},
+        {topic:"presPerfect", q:"She ___ (not/finish) her report yet.", options:["hasn't finished","haven't finished","didn't finish"], answer:0},
+        {topic:"presPerfect", q:"___ you ever ___ (be) on a mission abroad?", options:["Have / been","Did / be","Are / being"], answer:0},
+        {topic:"presPerfect", q:"We ___ (already/secure) the area.", options:["already secured","have already secured","secure already"], answer:1},
+        {topic:"presPerfect", q:"He ___ (just/arrive) at the base.", options:["has just arrived","just arrived","is just arriving"], answer:0},
+        {topic:"presPerfect", q:"They ___ (not/see) the new equipment yet.", options:["haven't seen","hasn't seen","didn't see"], answer:0},
+        {topic:"presPerfect", q:"___ she ___ (finish) the exercise?", options:["Has / finished","Did / finish","Is / finishing"], answer:0},
+        {topic:"presPerfect", q:"I ___ (know) him for five years.", options:["know","have known","knew"], answer:1},
+        {topic:"presPerfect", q:"We ___ (never/train) in these conditions.", options:["never trained","have never trained","don't train never"], answer:1},
+        {topic:"presPerfect", q:"___ the commander ___ (arrive) yet?", options:["Has / arrived","Did / arrive","Is / arriving"], answer:0},
+
+        {topic:"pastCont", q:"We ___ (patrol) the area when the alarm went off.", options:["patrolled","were patrolling","patrol"], answer:1},
+        {topic:"pastCont", q:"I ___ (write) the report when the phone rang.", options:["was writing","wrote","write"], answer:0},
+        {topic:"pastCont", q:"___ you ___ (sleep) when the attack started?", options:["Were / sleeping","Did / sleep","Are / sleeping"], answer:0},
+        {topic:"pastCont", q:"While I ___ (drive), it started to rain.", options:["was driving","drove","drive"], answer:0},
+        {topic:"pastCont", q:"They ___ (not/listen) when the order was given.", options:["weren't listening","didn't listen","don't listen"], answer:0},
+        {topic:"pastCont", q:"He ___ (train) all afternoon yesterday.", options:["was training","trained","trains"], answer:0},
+        {topic:"pastCont", q:"___ the soldiers ___ (wait) at the checkpoint?", options:["Were / waiting","Did / wait","Are / waiting"], answer:0},
+        {topic:"pastCont", q:"I ___ (not/pay) attention when he explained the plan.", options:["wasn't paying","didn't pay","don't pay"], answer:0},
+        {topic:"pastCont", q:"While she ___ (brief) the team, the power went out.", options:["was briefing","briefed","briefs"], answer:0},
+        {topic:"pastCont", q:"___ it ___ (rain) during the exercise?", options:["Was / raining","Did / rain","Is / raining"], answer:0},
+
+        {topic:"firstCond", q:"If we ___ (train) hard, we ___ (pass) the exam.", options:["train / will pass","trained / would pass","will train / pass"], answer:0},
+        {topic:"firstCond", q:"Unless you ___ (report) now, you ___ (be) late.", options:["report / will be","reported / would be","will report / are"], answer:0},
+        {topic:"firstCond", q:"If the weather ___ (be) bad, we ___ (postpone) the exercise.", options:["is / will postpone","will be / postpone","was / would postpone"], answer:0},
+        {topic:"firstCond", q:"As soon as he ___ (arrive), we ___ (start) the briefing.", options:["arrives / will start","will arrive / start","arrived / would start"], answer:0},
+        {topic:"firstCond", q:"If they ___ (not/hurry), they ___ (miss) the transport.", options:["don't hurry / will miss","won't hurry / miss","didn't hurry / would miss"], answer:0},
+        {topic:"firstCond", q:"We ___ (help) you if you ___ (need) it.", options:["will help / need","help / will need","would help / needed"], answer:0},
+        {topic:"firstCond", q:"If I ___ (see) him, I ___ (tell) him.", options:["see / will tell","saw / would tell","will see / tell"], answer:0},
+        {topic:"firstCond", q:"Unless the order ___ (change), we ___ (proceed) as planned.", options:["changes / will proceed","will change / proceed","changed / would proceed"], answer:0},
+        {topic:"firstCond", q:"If she ___ (not/pass), she ___ (retake) the exam.", options:["doesn't pass / will retake","won't pass / retakes","didn't pass / would retake"], answer:0},
+        {topic:"firstCond", q:"What ___ (happen) if the plan ___ (fail)?", options:["will happen / fails","happens / will fail","would happen / failed"], answer:0},
+
+        {topic:"passive", q:"The report ___ (write) every day.", options:["is written","was written","writes"], answer:0},
+        {topic:"passive", q:"The order ___ (give) yesterday.", options:["is given","was given","gives"], answer:1},
+        {topic:"passive", q:"English ___ (speak) in most NATO exercises.", options:["is spoken","was spoken","speaks"], answer:0},
+        {topic:"passive", q:"The mission ___ (complete) successfully last month.", options:["is completed","was completed","completes"], answer:1},
+        {topic:"passive", q:"New equipment ___ (deliver) to the base every week.", options:["is delivered","was delivered","delivers"], answer:0},
+        {topic:"passive", q:"The briefing ___ (cancel) yesterday because of the weather.", options:["is cancelled","was cancelled","cancels"], answer:1},
+        {topic:"passive", q:"This procedure ___ (follow) by all soldiers.", options:["is followed","was followed","follows"], answer:0},
+        {topic:"passive", q:"The agreement ___ (sign) last year.", options:["is signed","was signed","signs"], answer:1},
+        {topic:"passive", q:"Reports ___ (check) by the commander every evening.", options:["are checked","were checked","check"], answer:0},
+        {topic:"passive", q:"The exercise ___ (organize) by NATO forces last month.", options:["is organized","was organized","organizes"], answer:1},
+
+        {topic:"reported", q:"He said that he ___ (be) tired.", options:["is","was","has been"], answer:1},
+        {topic:"reported", q:"She told me that she ___ (finish) the report.", options:["finished","has finished","had finished"], answer:2},
+        {topic:"reported", q:"The commander said that the mission ___ (be) successful.", options:["is","was","has been"], answer:1},
+        {topic:"reported", q:"He said he ___ (report) later.", options:["will report","would report","reports"], answer:1},
+        {topic:"reported", q:"She told us that she ___ (not/know) the answer.", options:["doesn't know","didn't know","hasn't known"], answer:1},
+        {topic:"reported", q:"They said that they ___ (train) every day.", options:["train","trained","were training"], answer:1},
+        {topic:"reported", q:"He told me that he ___ (already/leave).", options:["already left","has already left","had already left"], answer:2},
+        {topic:"reported", q:"She said she ___ (call) me tomorrow.", options:["will call","would call","calls"], answer:1},
+        {topic:"reported", q:"The officer said that the area ___ (secure).", options:["is secured","was secured","secures"], answer:1},
+        {topic:"reported", q:"He said that he ___ (not/have) time.", options:["doesn't have","didn't have","hasn't had"], answer:1}
+      ]
+    },
+    listening:[
+      {
+        id:"p2l1", title:"Zestaw egzaminacyjny 1", meta:"Radio · meldunek sytuacyjny",
+        transcript:[
+          "Command: Alpha One, this is Command, what is your status? Over.",
+          "Alpha One: Command, this is Alpha One. We have secured the perimeter. No casualties. Over.",
+          "Command: Roger, Alpha One. Do you require assistance? Over.",
+          "Alpha One: Negative, Command. Situation is under control. We will continue the patrol. Over.",
+          "Command: Understood. Report again in thirty minutes. Command out."
+        ],
+        questions:[
+          {q:"What is the status of the perimeter?", options:["Not secured","Secured","Unknown"], answer:1},
+          {q:"Are there any casualties?", options:["Yes","No","Not mentioned"], answer:1},
+          {q:"Does Alpha One need assistance?", options:["Yes","No","They aren't sure"], answer:1},
+          {q:"Alpha One requires assistance.", options:["True","False"], answer:1}
+        ]
+      },
+      {
+        id:"p2l2", title:"Zestaw egzaminacyjny 2", meta:"Radio · sprawdzenie łączności",
+        transcript:[
+          "Bravo Two: Command, this is Bravo Two, radio check, how do you read me? Over.",
+          "Command: Bravo Two, this is Command, I read you loud and clear. Over.",
+          "Bravo Two: Roger, Command. Requesting permission to proceed to checkpoint three. Over.",
+          "Command: Bravo Two, permission granted. Proceed to checkpoint three and report on arrival. Over.",
+          "Bravo Two: Wilco. Bravo Two out."
+        ],
+        questions:[
+          {q:"Why does Bravo Two contact Command first?", options:["To report an incident","For a radio check","To request assistance"], answer:1},
+          {q:"What does Bravo Two request permission for?", options:["To return to base","To proceed to checkpoint three","To stop the patrol"], answer:1},
+          {q:"What does \"Wilco\" mean here?", options:["I don't understand","I will comply","Say again"], answer:1},
+          {q:"Command reads Bravo Two loud and clear.", options:["True","False"], answer:0}
+        ]
+      },
+      {
+        id:"p2l3", title:"Zestaw egzaminacyjny 3", meta:"Wywiad · współpraca międzynarodowa",
+        transcript:[
+          "Interviewer: What do you think about international joint exercises?",
+          "Officer: In my opinion, they are essential. If soldiers from different countries never train together, cooperation during a real mission becomes very difficult.",
+          "Interviewer: Do you think language is a big challenge?",
+          "Officer: Yes, definitely. If we improve our English, we will communicate better with allied forces.",
+          "Interviewer: Thank you for your time.",
+          "Officer: You're welcome."
+        ],
+        questions:[
+          {q:"What is the officer's opinion of joint exercises?", options:["They are unnecessary","They are essential","They are too expensive"], answer:1},
+          {q:"According to the officer, what happens without joint training?", options:["Nothing changes","Cooperation becomes difficult","Soldiers get promoted faster"], answer:1},
+          {q:"What does the officer say about English?", options:["It's not important","Improving it will help communication","It's already perfect"], answer:1},
+          {q:"The officer thinks language training is unimportant.", options:["True","False"], answer:1}
+        ]
+      }
+    ],
+    reading:[
+      {
+        id:"p2r1", title:"Zestaw egzaminacyjny 1", meta:"Tekst · meldunek sytuacyjny",
+        text:[
+          "At 0530 hours, a routine patrol was checking the eastern perimeter when they noticed an unattended vehicle near the fence.",
+          "The patrol leader immediately reported the incident to command and requested assistance. Within ten minutes, a second team arrived and secured the area.",
+          "After inspection, the vehicle was found to be empty. There were no casualties, and the situation returned to normal by 0600 hours."
+        ],
+        questions:[
+          {q:"What did the patrol notice?", options:["A fire","An unattended vehicle","An injured soldier"], answer:1},
+          {q:"What did the patrol leader do first?", options:["Reported to command","Left the area","Called the police"], answer:0},
+          {q:"Were there any casualties?", options:["Yes, one","Yes, several","No"], answer:2},
+          {q:"The vehicle was found to be empty.", options:["True","False"], answer:0}
+        ]
+      },
+      {
+        id:"p2r2", title:"Zestaw egzaminacyjny 2", meta:"Tekst · procedury radiowe",
+        text:[
+          "Clear radio communication saves lives in the field. Every message should be short, precise, and follow standard procedure.",
+          "When starting a transmission, identify yourself and the receiver: \"Alpha One, this is Command.\" End every message with \"over\" if you expect a reply, or \"out\" if the conversation is finished.",
+          "If you don't understand a message, say \"say again\" instead of guessing. Never assume — confirm."
+        ],
+        questions:[
+          {q:"What should every radio message be?", options:["Long and detailed","Short and precise","Informal"], answer:1},
+          {q:"What do you say if you don't understand a message?", options:["Roger","Say again","Out"], answer:1},
+          {q:"When do you end a message with \"out\"?", options:["When you expect a reply","When the conversation is finished","At the start"], answer:1},
+          {q:"You should guess if you don't understand a message.", options:["True","False"], answer:1}
+        ]
+      },
+      {
+        id:"p2r3", title:"Zestaw egzaminacyjny 3", meta:"Tekst · ćwiczenia wielonarodowe",
+        text:[
+          "Last month, soldiers from four NATO countries took part in a multinational joint exercise in western Poland. The exercise focused on cooperation between allied forces during a simulated crisis.",
+          "\"If countries don't train together regularly, real cooperation becomes very difficult,\" said the exercise commander. \"In my opinion, exercises like this one build trust as much as skill.\"",
+          "The mission objective was achieved successfully, and a new agreement on future joint training was signed at the end of the exercise."
+        ],
+        questions:[
+          {q:"How many countries took part in the exercise?", options:["Two","Three","Four"], answer:2},
+          {q:"What did the exercise focus on?", options:["Weapons testing","Cooperation between allied forces","Individual fitness"], answer:1},
+          {q:"What happened at the end of the exercise?", options:["A new agreement was signed","The mission failed","Soldiers were deployed abroad"], answer:0},
+          {q:"Four countries took part in the exercise.", options:["True","False"], answer:0}
+        ]
+      }
+    ],
+    writing:{
+      prompts:[
+        {id:"p2w1", title:"Meldunek sytuacyjny", timeLimitMin:25, wordTarget:"120–150 słów",
+          instructions:"Write a situation report (120–150 words) describing an incident during a patrol: what happened, what actions were taken, and the current status."},
+        {id:"p2w2", title:"Opinia", timeLimitMin:25, wordTarget:"120–150 słów",
+          instructions:"Do you think international joint exercises are useful for the army? Write a short opinion text (120–150 words) and give reasons for your opinion."},
+        {id:"p2w3", title:"List formalny / e-mail", timeLimitMin:25, wordTarget:"120–150 słów",
+          instructions:"Write a formal email (120–150 words) to your commanding officer requesting leave for personal reasons. Explain the situation and propose dates."}
+      ]
+    },
+    speaking:{
+      readAloud:[
+        {id:"p2sa1", title:"Meldunek sytuacyjny", text:"At 0530 hours, our patrol noticed an unattended vehicle near the eastern fence. We immediately reported the incident to command and requested backup. Fortunately, there were no casualties, and the situation returned to normal within thirty minutes."},
+        {id:"p2sa2", title:"Opinia o współpracy", text:"In my opinion, international cooperation is essential for modern armed forces. If soldiers from different countries never train together, communication during a real mission becomes very difficult. That is why joint exercises are so important for building trust between allies."},
+        {id:"p2sa3", title:"Komunikacja radiowa", text:"Command, this is Alpha One. We have secured the perimeter, and there are no casualties. We will continue the patrol and report again in thirty minutes. Over and out."}
+      ],
+      examCards:[
+        {q:"Describe an incident you experienced or read about during a patrol.", tips:["Use Past Simple/Continuous","incident, casualty, report"]},
+        {q:"What would you do if you noticed a suspicious vehicle near the base?", tips:["First Conditional: If I saw..., I would..."]},
+        {q:"What is your opinion about international joint military exercises?", tips:["In my opinion...","I believe..."]},
+        {q:"Explain the correct procedure for a radio check.", tips:["radio check, over, roger, copy that"]},
+        {q:"What are the benefits of cooperation between NATO countries?", tips:["cooperation, allied forces, trust, communication"]},
+        {q:"Tell me about a mission or exercise you took part in.", tips:["Past Simple: I took part in...","the objective was..."]},
+        {q:"If you were the commander, what would you change about training?", tips:["Second Conditional: If I were..., I would..."]},
+        {q:"How do you deal with stressful situations during operations?", tips:["I usually...","I try to..."]},
+        {q:"What does \"wilco\" mean and when do you use it?", tips:["I will comply — used in radio communication"]},
+        {q:"Do you think language skills are important for a soldier's career? Why?", tips:["I think... because...","opportunities, missions abroad"]}
+      ]
+    }
+  }
+];
+
+const MODULES = ["grammar","listening","reading","writing","speaking"];
+const MODULE_LABELS = {grammar:"Gramatyka", listening:"Słuchanie", reading:"Czytanie", writing:"Pisanie", speaking:"Mówienie"};
+
+/* =========================================================
+   PROGRESS (localStorage)
+   ========================================================= */
+const PROGRESS_KEY = "en-passport-progress-v3";
+const WRITING_KEY = "en-passport-writing-v3";
+
+function blankLevelProgress(){
+  return {
+    grammar:{studiedTenses:[], quizBest:{}},
+    listening:{completed:[]},
+    reading:{completed:[]},
+    speaking:{readAloudDone:[], cardsReviewed:false}
+  };
+}
+function loadProgress(){
+  try{ const raw = localStorage.getItem(PROGRESS_KEY); if(raw) return JSON.parse(raw); }catch(e){}
+  const p = {}; LEVELS.forEach(l=>{ p[l.id] = blankLevelProgress(); }); return p;
+}
+function saveProgress(){ localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); }
+let progress = loadProgress();
+LEVELS.forEach(l=>{ if(!progress[l.id]) progress[l.id] = blankLevelProgress(); });
+
+function loadWriting(){
+  try{ const raw = localStorage.getItem(WRITING_KEY); if(raw) return JSON.parse(raw); }catch(e){}
+  const w = {}; LEVELS.forEach(l=>{ w[l.id]=[]; }); return w;
+}
+function saveWriting(){ localStorage.setItem(WRITING_KEY, JSON.stringify(writingSaves)); }
+let writingSaves = loadWriting();
+LEVELS.forEach(l=>{ if(!writingSaves[l.id]) writingSaves[l.id] = []; });
+
+function moduleComplete(lvl, key){
+  const prog = progress[lvl.id];
+  if(key==="grammar") return prog.grammar.studiedTenses.length >= lvl.grammar.tenses.length;
+  if(key==="listening") return prog.listening.completed.length >= lvl.listening.length;
+  if(key==="reading") return prog.reading.completed.length >= lvl.reading.length;
+  if(key==="writing") return writingSaves[lvl.id].length >= 1;
+  if(key==="speaking") return prog.speaking.readAloudDone.length >= lvl.speaking.readAloud.length && prog.speaking.cardsReviewed;
+  return false;
+}
+function levelCompletedModules(lvl){ return MODULES.filter(m=>moduleComplete(lvl,m)).length; }
+function totalModulesDone(){ let done=0; LEVELS.forEach(l=>{ done+=levelCompletedModules(l); }); return done; }
+
+function updateStatsChip(){
+  document.getElementById("statsChip").textContent = totalModulesDone() + " / " + (LEVELS.length*MODULES.length) + " modułów";
+}
+
+/* =========================================================
+   ROUTER
+   ========================================================= */
+let state = {view:"levels", levelId:null, module:"grammar"};
+const mainEl = document.getElementById("main");
+
+document.getElementById("brandHome").addEventListener("click", goHome);
+document.getElementById("brandHome").addEventListener("keydown", e=>{ if(e.key==="Enter") goHome(); });
+function goHome(){ stopSpeaking(); state = {view:"levels", levelId:null, module:"grammar"}; render(); }
+
+function render(){
+  updateStatsChip();
+  if(state.view==="levels") renderLevels();
+  else renderLevel();
+  window.scrollTo(0,0);
+}
+
+function renderLevels(){
+  let html = `
+    <div class="intro">
+      <h2>Twój paszport językowy</h2>
+      <p>Dwie ścieżki przygotowania do egzaminu STANAG 6001. Każdy poziom ma pięć modułów odpowiadających sprawnościom egzaminacyjnym: gramatykę, słuchanie, czytanie, pisanie i mówienie. Wszystko działa offline, a Twoje postępy zostają zapisane na tym urządzeniu.</p>
+    </div>
+    <div class="level-grid">
+  `;
+  LEVELS.forEach(lvl=>{
+    const done = levelCompletedModules(lvl);
+    const pct = Math.round((done/MODULES.length)*100);
+    html += `
+      <div class="level-card" data-level="${lvl.id}" tabindex="0" role="button" aria-label="Otwórz ${lvl.label}">
+        <div class="ring" aria-hidden="true"></div>
+        <div class="spj">${lvl.code}</div>
+        <h3>${lvl.label}</h3>
+        <div class="cefr">${lvl.subtitle} &middot; ${lvl.cefr}</div>
+        <p class="desc">${lvl.desc}</p>
+        <div class="lvl-progress">
+          <div class="lvl-bar"><div class="lvl-bar-fill" style="width:${pct}%;"></div></div>
+          <div class="pct">${done}/5</div>
+        </div>
+      </div>
+    `;
+  });
+  html += `</div><div class="reset-row"><button class="link-btn" id="resetBtn">Wyczyść wszystkie postępy i zapisane teksty</button></div>`;
+  mainEl.innerHTML = html;
+  mainEl.querySelectorAll(".level-card").forEach(card=>{
+    card.addEventListener("click", ()=> openLevel(card.dataset.level));
+    card.addEventListener("keydown", e=>{ if(e.key==="Enter") openLevel(card.dataset.level); });
+  });
+  document.getElementById("resetBtn").addEventListener("click", ()=>{
+    if(confirm("Na pewno wyczyścić wszystkie zapisane postępy i teksty?")){
+      progress = {}; LEVELS.forEach(l=>{ progress[l.id]=blankLevelProgress(); }); saveProgress();
+      writingSaves = {}; LEVELS.forEach(l=>{ writingSaves[l.id]=[]; }); saveWriting();
+      render();
+    }
+  });
+}
+function openLevel(levelId){ state = {view:"level", levelId, module:"grammar"}; render(); }
+
+function renderLevel(){
+  stopSpeaking();
+  const lvl = LEVELS.find(l=>l.id===state.levelId);
+  let html = `
+    <div class="crumbs"><button id="crumbHome">Poziomy</button> <span>/</span> <span>${lvl.label}</span></div>
+    <div class="module-header">
+      <div class="eyebrow">${lvl.code} &middot; ${lvl.cefr}</div>
+      <h2>${lvl.label} — ${lvl.subtitle}</h2>
+    </div>
+    <div class="tabs">
+      ${MODULES.map(m=>`
+        <button class="tab-btn ${state.module===m?"active":""}" data-mod="${m}">
+          <span class="tab-dot ${moduleComplete(lvl,m)?"done":""}"></span> ${MODULE_LABELS[m]}
+        </button>
+      `).join("")}
+    </div>
+    <div id="modPanel"></div>
+  `;
+  mainEl.innerHTML = html;
+  document.getElementById("crumbHome").addEventListener("click", goHome);
+  mainEl.querySelectorAll(".tab-btn").forEach(btn=>{
+    btn.addEventListener("click", ()=>{ stopSpeaking(); state.module = btn.dataset.mod; render(); });
+  });
+  const panel = document.getElementById("modPanel");
+  if(state.module==="grammar") renderGrammarModule(panel, lvl);
+  else if(state.module==="listening") renderExamListModule(panel, lvl, "listening");
+  else if(state.module==="reading") renderExamListModule(panel, lvl, "reading");
+  else if(state.module==="writing") renderWritingModule(panel, lvl);
+  else if(state.module==="speaking") renderSpeakingModule(panel, lvl);
+}
+
+/* =========================================================
+   GRAMMAR MODULE
+   ========================================================= */
+function renderGrammarModule(panel, lvl){
+  const g = lvl.grammar;
+  let html = `<div class="section-lbl">Materiał — czasy na ${lvl.label}</div>`;
+  g.tenses.forEach(t=>{
+    const studied = progress[lvl.id].grammar.studiedTenses.includes(t.id);
+    html += `
+      <div class="tense-card">
+        <div class="tense-head">
+          <h4>${t.name} <span class="pl">(${t.namePl})</span></h4>
+          <button class="small-btn" data-mark-tense="${t.id}">${studied ? "Przerobione ✓" : "Oznacz jako przerobione"}</button>
+        </div>
+        <div class="tense-block-lbl">Kiedy używamy</div>
+        <ul class="usage-list">${t.usage.map(u=>`<li>${u}</li>`).join("")}</ul>
+        <div class="tense-block-lbl">Budowa zdania</div>
+        <table class="struct-table">
+          <tr><td>Twierdzenie</td><td><div class="formula">${t.structure.affirmative.formula}</div><div class="ex">${t.structure.affirmative.example}</div></td></tr>
+          <tr><td>Przeczenie</td><td><div class="formula">${t.structure.negative.formula}</div><div class="ex">${t.structure.negative.example}</div></td></tr>
+          <tr><td>Pytanie</td><td><div class="formula">${t.structure.question.formula}</div><div class="ex">${t.structure.question.example}</div></td></tr>
+        </table>
+        <div class="tense-block-lbl">Zwroty sygnałowe</div>
+        <div class="tag-list">${t.signalWords.map(s=>`<span class="tag-chip">${s}</span>`).join("")}</div>
+        <div class="tense-block-lbl">Przydatne zwroty</div>
+        <ul class="phrase-mini">${t.usefulPhrases.map(p=>`<li>${p}</li>`).join("")}</ul>
+      </div>
+    `;
+  });
+
+  html += `<div class="section-lbl">Słownictwo — stopnie wojskowe</div>
+    <div class="ref-table-wrap"><table class="ref-table"><thead><tr><th>English</th><th>Polski</th></tr></thead><tbody>
+      ${RANKS.map(r=>`<tr><td>${r.en}</td><td>${r.pl}</td></tr>`).join("")}
+    </tbody></table></div>`;
+
+  html += `<div class="section-lbl">Słownictwo — życie codzienne</div>`;
+  EVERYDAY_VOCAB.forEach(cat=>{
+    html += `<div class="vocab-cat"><h5>${cat.category}</h5><div class="vocab-chips">
+      ${cat.items.map(i=>`<span class="vocab-chip"><b>${i.en}</b> — ${i.pl}</span>`).join("")}
+    </div></div>`;
+  });
+
+  const verbList = lvl.id==="p1" ? IRREGULAR_CORE : IRREGULAR_CORE.concat(IRREGULAR_EXTRA);
+  html += `<div class="section-lbl">Czasowniki nieregularne — niezbędne minimum</div>
+    <div class="ref-table-wrap"><table class="ref-table"><thead><tr><th>Base</th><th>Past</th><th>Participle</th><th>Polski</th></tr></thead><tbody>
+      ${verbList.map(v=>`<tr><td>${v.base}</td><td>${v.past}</td><td>${v.part}</td><td>${v.pl}</td></tr>`).join("")}
+    </tbody></table></div>`;
+
+  html += `<div class="section-lbl">Quiz gramatyczny</div>
+    <p style="font-size:13.5px;color:#5a6259;margin:0 0 14px;">Wybierz temat — quiz wylosuje 10 pytań. Możesz powtarzać dowolną liczbę razy.</p>
+    <div class="quiz-topic-btns" id="quizTopicBtns">
+      <button class="quiz-topic-btn" data-topic="__general__">Quiz ogólny
+        ${progress[lvl.id].grammar.quizBest.__general__!==undefined ? `<span class="quiz-best">najlepszy wynik: ${progress[lvl.id].grammar.quizBest.__general__}%</span>` : ""}
+      </button>
+      ${g.tenses.map(t=>`
+        <button class="quiz-topic-btn" data-topic="${t.id}">${t.name}
+          ${progress[lvl.id].grammar.quizBest[t.id]!==undefined ? `<span class="quiz-best">najlepszy wynik: ${progress[lvl.id].grammar.quizBest[t.id]}%</span>` : ""}
+        </button>
+      `).join("")}
+    </div>
+    <div id="grammarQuizArea"></div>
+  `;
+
+  panel.innerHTML = html;
+
+  panel.querySelectorAll("[data-mark-tense]").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const tid = btn.dataset.markTense;
+      const arr = progress[lvl.id].grammar.studiedTenses;
+      if(!arr.includes(tid)){ arr.push(tid); saveProgress(); showStamp(lvl, "grammar", "Materiał: "+tid); }
+    });
+  });
+
+  panel.querySelectorAll(".quiz-topic-btn").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      panel.querySelectorAll(".quiz-topic-btn").forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+      startGrammarQuiz(lvl, btn.dataset.topic);
+    });
+  });
+}
+
+function shuffleArr(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+
+function startGrammarQuiz(lvl, topic){
+  const area = document.getElementById("grammarQuizArea");
+  const pool = topic==="__general__" ? lvl.grammar.quizBank : lvl.grammar.quizBank.filter(q=>q.topic===topic);
+  const picked = shuffleArr(pool).slice(0,10);
+  const topicName = topic==="__general__" ? "Quiz ogólny" : lvl.grammar.tenses.find(t=>t.id===topic).name;
+
+  let html = `<div class="section-lbl">${topicName} — 10 pytań</div><div id="gqList"></div>
+    <button class="primary-btn" id="submitGQuiz">Zakończ quiz</button>
+    <div id="gqResult"></div>`;
+  area.innerHTML = html;
+  const list = document.getElementById("gqList");
+  picked.forEach((ex,i)=>{
+    const block = document.createElement("div");
+    block.className = "exercise";
+    block.innerHTML = `
+      <div class="q">${i+1}. ${ex.q}</div>
+      <div class="options">
+        ${ex.options.map((opt,oi)=>`
+          <label class="option" data-ex="${i}" data-opt="${oi}">
+            <input type="radio" name="gq${i}" value="${oi}"> ${opt}
+          </label>
+        `).join("")}
+      </div>
+    `;
+    list.appendChild(block);
+  });
+  document.getElementById("submitGQuiz").addEventListener("click", ()=>{
+    let correct = 0;
+    picked.forEach((ex,i)=>{
+      const selected = list.querySelector(`input[name="gq${i}"]:checked`);
+      const opts = list.querySelectorAll(`.option[data-ex="${i}"]`);
+      opts.forEach(o=>o.classList.remove("correct","incorrect"));
+      const correctOpt = list.querySelector(`.option[data-ex="${i}"][data-opt="${ex.answer}"]`);
+      if(selected && parseInt(selected.value,10)===ex.answer){ correct++; correctOpt.classList.add("correct"); }
+      else{ if(selected) selected.closest(".option").classList.add("incorrect"); correctOpt.classList.add("correct"); }
+    });
+    const pct = Math.round((correct/picked.length)*100);
+    const key = topic;
+    const prevBest = progress[lvl.id].grammar.quizBest[key];
+    if(prevBest===undefined || pct>prevBest){ progress[lvl.id].grammar.quizBest[key] = pct; saveProgress(); }
+    document.getElementById("gqResult").innerHTML = `
+      <div class="score-banner">
+        <div><div class="lbl">Wynik</div><div class="big">${correct} / ${picked.length} (${pct}%)</div></div>
+        <button class="ghost-btn" id="retryGQuiz">Losuj ponownie</button>
+      </div>
+    `;
+    document.getElementById("retryGQuiz").addEventListener("click", ()=> startGrammarQuiz(lvl, topic));
+  });
+}
+
+/* =========================================================
+   LISTENING / READING MODULE (exam-set list + detail)
+   ========================================================= */
+function renderExamListModule(panel, lvl, kind){
+  const sets = lvl[kind];
+  const isListening = kind==="listening";
+  let html = `
+    <div class="exam-banner">${isListening ? "🎧" : "📄"} <span>Format zbliżony do egzaminu STANAG: <b>${isListening ? "3 zestawy słuchania" : "3 zestawy czytania"}</b>, każdy z pytaniami wielokrotnego wyboru oraz prawda/fałsz.</span></div>
+    <div class="set-grid">
+      ${sets.map((s,i)=>`
+        <div class="set-card" data-set="${s.id}" tabindex="0" role="button" aria-label="Otwórz ${s.title}">
+          <div>
+            <div class="set-title">${s.title}</div>
+            <div class="set-meta">${s.meta}</div>
+          </div>
+          <div class="set-badge ${progress[lvl.id][kind].completed.includes(s.id)?"done":""}"></div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+  panel.innerHTML = html;
+  panel.querySelectorAll(".set-card").forEach(card=>{
+    card.addEventListener("click", ()=> openExamSet(panel, lvl, kind, card.dataset.set));
+    card.addEventListener("keydown", e=>{ if(e.key==="Enter") openExamSet(panel, lvl, kind, card.dataset.set); });
+  });
+}
+
+function openExamSet(panel, lvl, kind, setId){
+  stopSpeaking();
+  const set = lvl[kind].find(s=>s.id===setId);
+  const backBtn = `<button class="ghost-btn" id="backToSets" style="margin-bottom:18px;">&larr; Wróć do listy zestawów</button>`;
+  if(kind==="reading"){
+    panel.innerHTML = `
+      ${backBtn}
+      <div class="reading-text">${set.text.map(p=>`<p>${p}</p>`).join("")}</div>
+      <div id="setQList"></div>
+      <button class="primary-btn" id="checkSet">Sprawdź odpowiedzi</button>
+      <div id="setResult"></div>
+    `;
+  } else {
+    const ttsSupported = "speechSynthesis" in window;
+    panel.innerHTML = `
+      ${backBtn}
+      ${!ttsSupported ? `<div class="tts-warning">Ta przeglądarka nie obsługuje syntezy mowy. Skorzystaj z transkrypcji poniżej.</div>` : ""}
+      <div class="listen-box">
+        <div class="listen-controls">
+          <button class="primary-btn" id="playBtn" ${!ttsSupported?"disabled":""}>▶ Odsłuchaj nagranie</button>
+          <button class="icon-btn" id="stopBtn" ${!ttsSupported?"disabled":""} aria-label="Zatrzymaj">■</button>
+          <span class="listen-status" id="listenStatus">${ttsSupported ? "Gotowe do odtworzenia" : "Synteza mowy niedostępna"}</span>
+        </div>
+        <button class="link-btn" id="toggleTranscript">Pokaż / ukryj transkrypcję</button>
+        <div class="transcript" id="transcript">${set.transcript.map(l=>`<p>${l}</p>`).join("")}</div>
+      </div>
+      <div id="setQList"></div>
+      <button class="primary-btn" id="checkSet">Sprawdź odpowiedzi</button>
+      <div id="setResult"></div>
+    `;
+    document.getElementById("toggleTranscript").addEventListener("click", ()=>{
+      document.getElementById("transcript").classList.toggle("show");
+    });
+    if(ttsSupported){
+      document.getElementById("playBtn").addEventListener("click", ()=>{
+        stopSpeaking();
+        const fullText = set.transcript.join(". ").replace(/\s+/g," ");
+        const utter = new SpeechSynthesisUtterance(fullText);
+        utter.lang = "en-US";
+        const voice = pickEnglishVoice();
+        if(voice) utter.voice = voice;
+        utter.rate = 0.95;
+        utter.onstart = ()=>{ document.getElementById("listenStatus").textContent = "Odtwarzanie..."; };
+        utter.onend = ()=>{ document.getElementById("listenStatus").textContent = "Zakończono"; };
+        utter.onerror = ()=>{ document.getElementById("listenStatus").textContent = "Błąd odtwarzania"; };
+        window.speechSynthesis.speak(utter);
+      });
+      document.getElementById("stopBtn").addEventListener("click", ()=>{
+        stopSpeaking();
+        document.getElementById("listenStatus").textContent = "Zatrzymano";
+      });
+    }
+  }
+  document.getElementById("backToSets").addEventListener("click", ()=>{ stopSpeaking(); renderExamListModule(panel, lvl, kind); });
+
+  const qList = document.getElementById("setQList");
+  set.questions.forEach((ex,i)=>{
+    const block = document.createElement("div");
+    block.className = "exercise";
+    block.innerHTML = `
+      <div class="q">${i+1}. ${ex.q}</div>
+      <div class="options">
+        ${ex.options.map((opt,oi)=>`
+          <label class="option" data-ex="${i}" data-opt="${oi}">
+            <input type="radio" name="sq${i}" value="${oi}"> ${opt}
+          </label>
+        `).join("")}
+      </div>
+      <div class="exercise-feedback" id="fb-s-${i}"></div>
+    `;
+    qList.appendChild(block);
+  });
+  document.getElementById("checkSet").addEventListener("click", ()=>{
+    let correct = 0;
+    set.questions.forEach((ex,i)=>{
+      const selected = qList.querySelector(`input[name="sq${i}"]:checked`);
+      const fb = document.getElementById(`fb-s-${i}`);
+      const opts = qList.querySelectorAll(`.option[data-ex="${i}"]`);
+      opts.forEach(o=>o.classList.remove("correct","incorrect"));
+      if(!selected){ fb.textContent = "Brak odpowiedzi."; fb.className="exercise-feedback bad"; return; }
+      const val = parseInt(selected.value,10);
+      const correctOpt = qList.querySelector(`.option[data-ex="${i}"][data-opt="${ex.answer}"]`);
+      if(val===ex.answer){ correct++; fb.textContent="Dobrze! ✓"; fb.className="exercise-feedback good"; correctOpt.classList.add("correct"); }
+      else{ fb.textContent="Niepoprawnie. Poprawna odpowiedź: "+ex.options[ex.answer]; fb.className="exercise-feedback bad"; selected.closest(".option").classList.add("incorrect"); correctOpt.classList.add("correct"); }
+    });
+    const pct = Math.round((correct/set.questions.length)*100);
+    document.getElementById("setResult").innerHTML = `
+      <div class="score-banner">
+        <div><div class="lbl">Wynik</div><div class="big">${correct} / ${set.questions.length} (${pct}%)</div></div>
+        <button class="ghost-btn" id="markSetDone">${progress[lvl.id][kind].completed.includes(setId) ? "Ukończono ✓" : "Oznacz zestaw jako ukończony"}</button>
+      </div>
+    `;
+    document.getElementById("markSetDone").addEventListener("click", ()=>{
+      if(!progress[lvl.id][kind].completed.includes(setId)){
+        progress[lvl.id][kind].completed.push(setId);
+        saveProgress();
+        showStamp(lvl, kind, set.title);
+      }
+    });
+  });
+}
+
+/* =========================================================
+   WRITING MODULE (exam prompts + timer + saved texts, max 2)
+   ========================================================= */
+let writingTimerInterval = null;
+function renderWritingModule(panel, lvl){
+  const prompts = lvl.writing.prompts;
+  let selectedPromptId = prompts[0].id;
+
+  function draw(){
+    clearInterval(writingTimerInterval);
+    const prompt = prompts.find(p=>p.id===selectedPromptId);
+    const saved = writingSaves[lvl.id];
+    const atLimit = saved.length >= 2;
+
+    let html = `
+      <div class="exam-banner">✍️ <span>Zadania pisemne w formacie egzaminacyjnym STANAG — limit czasu i liczby słów jak na egzaminie.</span></div>
+      <div class="prompt-grid">
+        ${prompts.map(p=>`
+          <div class="prompt-card ${p.id===selectedPromptId?"selected":""}" data-prompt="${p.id}">
+            <div class="p-title">${p.title}</div>
+            <div class="p-meta">${p.timeLimitMin} min &middot; ${p.wordTarget}</div>
+          </div>
+        `).join("")}
+      </div>
+      <div class="writing-prompt">
+        <h4>${prompt.title}</h4>
+        <p>${prompt.instructions}</p>
+      </div>
+      <div class="timer-box">
+        <div><div class="tlbl">Czas na zadanie</div><div class="clock" id="clockDisplay">${String(prompt.timeLimitMin).padStart(2,"0")}:00</div></div>
+        <button class="ghost-btn" id="startTimerBtn" style="border-color:var(--amber-light); color:var(--amber-light);">Rozpocznij odliczanie</button>
+        <span class="listen-status" id="timerStatus" style="color:#c9c2b0;"></span>
+      </div>
+      <textarea class="writing-area" id="writingArea" placeholder="Napisz swoją odpowiedź tutaj...">${draftText||""}</textarea>
+      <div class="word-count" id="wordCount">0 słów &middot; cel: ${prompt.wordTarget}</div>
+      ${atLimit ? `<div class="full-warning">Masz już zapisane 2 teksty w tym module. Usuń jeden z zapisanych tekstów poniżej, aby zapisać nowy.</div>` : ""}
+      <div class="action-row">
+        <button class="primary-btn" id="saveWritingBtn" ${atLimit?"disabled":""}>Zapisz tekst</button>
+      </div>
+      <div class="save-msg" id="saveMsg"></div>
+      <div class="saved-list">
+        <div class="section-lbl">Zapisane teksty (${saved.length}/2)</div>
+        ${saved.length===0 ? `<p style="font-size:13.5px;color:#8a8579;">Brak zapisanych tekstów.</p>` : saved.map(s=>`
+          <div class="saved-item">
+            <div class="si-head">
+              <div><div class="si-title">${s.promptTitle}</div><div class="si-meta">${s.words} słów &middot; ${s.date}</div></div>
+              <button class="del-btn" data-del="${s.id}">Usuń</button>
+            </div>
+            <div class="si-text">${s.text}</div>
+          </div>
+        `).join("")}
+      </div>
+    `;
+    panel.innerHTML = html;
+
+    panel.querySelectorAll(".prompt-card").forEach(card=>{
+      card.addEventListener("click", ()=>{ selectedPromptId = card.dataset.prompt; draftText=""; draw(); });
+    });
+
+    const area = document.getElementById("writingArea");
+    let draftLocal = area.value;
+    area.addEventListener("input", ()=>{
+      draftText = area.value;
+      const words = area.value.trim().length ? area.value.trim().split(/\s+/).length : 0;
+      const wc = document.getElementById("wordCount");
+      wc.textContent = words + " słów · cel: " + prompt.wordTarget;
+    });
+
+    document.getElementById("startTimerBtn").addEventListener("click", ()=>{
+      clearInterval(writingTimerInterval);
+      let remaining = prompt.timeLimitMin*60;
+      const clockEl = document.getElementById("clockDisplay");
+      const statusEl = document.getElementById("timerStatus");
+      statusEl.textContent = "Odliczanie trwa...";
+      writingTimerInterval = setInterval(()=>{
+        remaining--;
+        const mm = String(Math.floor(remaining/60)).padStart(2,"0");
+        const ss = String(remaining%60).padStart(2,"0");
+        clockEl.textContent = mm+":"+ss;
+        if(remaining<=0){
+          clearInterval(writingTimerInterval);
+          statusEl.textContent = "Czas minął — dokończ zdanie i zapisz tekst.";
+        }
+      },1000);
+    });
+
+    document.getElementById("saveWritingBtn").addEventListener("click", ()=>{
+      const text = area.value.trim();
+      const msg = document.getElementById("saveMsg");
+      if(!text){ msg.textContent = "Napisz najpierw tekst, zanim go zapiszesz."; msg.className="save-msg bad"; return; }
+      if(writingSaves[lvl.id].length>=2){ msg.textContent = "Limit 2 zapisanych tekstów osiągnięty — usuń jeden, aby zapisać nowy."; msg.className="save-msg bad"; return; }
+      const words = text.split(/\s+/).length;
+      writingSaves[lvl.id].push({
+        id: "w"+Date.now(), promptId: prompt.id, promptTitle: prompt.title, text: text, words: words,
+        date: new Date().toLocaleDateString("pl-PL")
+      });
+      saveWriting();
+      draftText = "";
+      showStamp(lvl, "writing", prompt.title);
+      draw();
+    });
+
+    panel.querySelectorAll("[data-del]").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        writingSaves[lvl.id] = writingSaves[lvl.id].filter(s=>s.id!==btn.dataset.del);
+        saveWriting();
+        draw();
+      });
+    });
+  }
+  let draftText = "";
+  draw();
+}
+
+/* =========================================================
+   SPEAKING MODULE (read-aloud + exam cue cards)
+   ========================================================= */
+function renderSpeakingModule(panel, lvl){
+  const s = lvl.speaking;
+  let html = `
+    <h3 class="speak-sub-lbl">Czytanie na głos</h3>
+    <p class="speak-sub-desc">Odsłuchaj wzorcową wymowę, a potem przeczytaj tekst na głos. To pomaga przełamać barierę mówienia po angielsku.</p>
+  `;
+  s.readAloud.forEach(t=>{
+    const done = progress[lvl.id].speaking.readAloudDone.includes(t.id);
+    html += `
+      <div class="readaloud-card">
+        <div class="p-title" style="font-family:var(--font-display);font-size:16.5px;font-weight:700;margin-bottom:8px;">${t.title}</div>
+        <div class="ra-text">${t.text}</div>
+        <div class="ra-controls">
+          <button class="small-btn" data-play="${t.id}">▶ Odsłuchaj wzór</button>
+          <span class="ra-status" id="raStatus-${t.id}"></span>
+          <button class="toggle-btn ${done?"on":""}" data-read="${t.id}">${done ? "Przeczytane ✓" : "Oznacz jako przeczytane"}</button>
+        </div>
+      </div>
+    `;
+  });
+
+  html += `
+    <h3 class="speak-sub-lbl" style="margin-top:34px;">Fiszki egzaminacyjne</h3>
+    <p class="speak-sub-desc">Zestaw pytań do wykorzystania na zajęciach — nauczyciel zadaje pytanie, uczeń odpowiada ustnie. Wskazówki pomagają ocenić odpowiedź.</p>
+    <div id="examCardArea"></div>
+  `;
+  panel.innerHTML = html;
+
+  panel.querySelectorAll("[data-play]").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      stopSpeaking();
+      const item = s.readAloud.find(x=>x.id===btn.dataset.play);
+      const statusEl = document.getElementById("raStatus-"+item.id);
+      if(!("speechSynthesis" in window)){ statusEl.textContent = "Synteza mowy niedostępna"; return; }
+      const utter = new SpeechSynthesisUtterance(item.text);
+      utter.lang = "en-US";
+      const voice = pickEnglishVoice();
+      if(voice) utter.voice = voice;
+      utter.rate = 0.9;
+      utter.onstart = ()=>{ statusEl.textContent = "Odtwarzanie..."; };
+      utter.onend = ()=>{ statusEl.textContent = "Twoja kolej — przeczytaj na głos!"; };
+      window.speechSynthesis.speak(utter);
+    });
+  });
+  panel.querySelectorAll("[data-read]").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const id = btn.dataset.read;
+      const arr = progress[lvl.id].speaking.readAloudDone;
+      if(!arr.includes(id)){ arr.push(id); saveProgress(); }
+      else { progress[lvl.id].speaking.readAloudDone = arr.filter(x=>x!==id); saveProgress(); }
+      renderSpeakingModule(panel, lvl);
+    });
+  });
+
+  drawExamCards(panel, lvl);
+}
+
+function drawExamCards(panel, lvl){
+  const cards = lvl.speaking.examCards;
+  let idx = 0;
+  const seen = new Set();
+  const area = document.getElementById("examCardArea");
+
+  function draw(){
+    seen.add(idx);
+    const allSeen = seen.size >= cards.length;
+    const c = cards[idx];
+    area.innerHTML = `
+      <div class="exam-card">
+        <div class="ec-counter">Pytanie ${idx+1} z ${cards.length}</div>
+        <div class="ec-q">${c.q}</div>
+        <div style="text-align:center;"><button class="small-btn" id="toggleTips">Pokaż / ukryj wskazówki</button></div>
+        <div class="ec-tips" id="ecTips">
+          <div class="ec-tips-lbl">Wskazówki / kluczowe zwroty</div>
+          <ul>${c.tips.map(t=>`<li>${t}</li>`).join("")}</ul>
+        </div>
+      </div>
+      <div class="ec-nav">
+        <button class="icon-btn" id="prevCard" ${idx===0?"disabled":""} aria-label="Poprzednia">&larr;</button>
+        <button class="icon-btn" id="nextCard" ${idx===cards.length-1?"disabled":""} aria-label="Następna">&rarr;</button>
+      </div>
+      <div class="action-row" style="justify-content:center;margin-top:18px;">
+        <button class="primary-btn" id="markCardsDone" ${!allSeen?"disabled":""}>
+          ${progress[lvl.id].speaking.cardsReviewed ? "Fiszki przerobione ✓" : "Oznacz fiszki jako przerobione"}
+        </button>
+      </div>
+    `;
+    document.getElementById("toggleTips").addEventListener("click", ()=>{
+      document.getElementById("ecTips").classList.toggle("show");
+    });
+    document.getElementById("prevCard").addEventListener("click", ()=>{ if(idx>0){ idx--; draw(); } });
+    document.getElementById("nextCard").addEventListener("click", ()=>{ if(idx<cards.length-1){ idx++; draw(); } });
+    document.getElementById("markCardsDone").addEventListener("click", ()=>{
+      if(!progress[lvl.id].speaking.cardsReviewed){
+        progress[lvl.id].speaking.cardsReviewed = true;
+        saveProgress();
+        showStamp(lvl, "speaking", "Fiszki egzaminacyjne");
+      }
+    });
+  }
+  draw();
+}
+
+/* =========================================================
+   SPEECH SYNTHESIS (offline TTS helpers)
+   ========================================================= */
+function stopSpeaking(){ if(window.speechSynthesis){ window.speechSynthesis.cancel(); } }
+function pickEnglishVoice(){
+  const voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
+  return voices.find(v=>v.lang && v.lang.startsWith("en")) || voices[0] || null;
+}
+if("speechSynthesis" in window){ window.speechSynthesis.onvoiceschanged = ()=>{}; }
+
+/* =========================================================
+   STAMP ANIMATION
+   ========================================================= */
+function showStamp(lvl, moduleKey, detail){
+  const overlay = document.getElementById("stampOverlay");
+  document.getElementById("stampUnitLabel").textContent = lvl.code;
+  document.getElementById("stampSectionLabel").textContent = (MODULE_LABELS[moduleKey]||moduleKey).toUpperCase();
+  document.getElementById("stampCaption").textContent = "Kliknij, aby kontynuować";
+  overlay.classList.add("show");
+  const close = ()=>{ overlay.classList.remove("show"); overlay.removeEventListener("click", close); render(); };
+  overlay.addEventListener("click", close);
+  setTimeout(()=>{ if(overlay.classList.contains("show")) close(); }, 1800);
+}
+
+/* =========================================================
+   INIT
+   ========================================================= */
+render();
+</script>
+</body>
+</html>
